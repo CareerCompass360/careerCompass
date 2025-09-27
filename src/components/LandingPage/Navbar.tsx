@@ -3,9 +3,12 @@
 import { Button } from "@/components/ui/button"
 import { Compass } from "lucide-react"
 import { useEffect, useState } from "react"
+import { useUser } from "@stackframe/stack"
+import Link from "next/link"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const user = useUser()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,8 +25,8 @@ export function Navbar() {
       className={`
         fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out
         ${isScrolled 
-          ? 'mt-4 mx-8 rounded-2xl bg-white/96 backdrop-blur-xl border-2 border-blue-200/40 shadow-2xl shadow-blue-200/30' 
-          : 'mt-0 mx-0 rounded-none bg-white/95 backdrop-blur-md border-b border-border/50 shadow-sm'
+          ? 'mt-4 mx-8 rounded-2xl bg-stone-50/96 backdrop-blur-xl border-2 border-amber-200/40 shadow-2xl shadow-amber-200/30' 
+          : 'mt-0 mx-0 rounded-none bg-stone-50/95 backdrop-blur-md border-b border-amber-100/50 shadow-sm'
         }
       `}
     >
@@ -42,7 +45,7 @@ export function Navbar() {
           <div className="flex items-center space-x-3">
             <div 
               className={`
-                bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-md transition-all duration-500 ease-in-out
+                bg-gradient-to-br from-amber-600 to-amber-500 rounded-xl flex items-center justify-center shadow-md transition-all duration-500 ease-in-out
                 ${isScrolled ? 'w-8 h-8' : 'w-9 h-9'}
               `}
             >
@@ -50,7 +53,7 @@ export function Navbar() {
             </div>
             <span 
               className={`
-                font-bold text-foreground tracking-tight transition-all duration-500 ease-in-out
+                font-bold text-amber-800 tracking-tight transition-all duration-500 ease-in-out
                 ${isScrolled ? 'text-lg' : 'text-xl'}
               `}
             >
@@ -59,41 +62,65 @@ export function Navbar() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#careers" className="text-muted-foreground hover:text-primary font-medium transition-all duration-300 hover:scale-105">
+            <a href="#careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               About
             </a>
-            <a href="/careers" className="text-muted-foreground hover:text-primary font-medium transition-all duration-300 hover:scale-105">
+            <a href="/careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               Careers
             </a>
-            <a href="#ai-test" className="text-muted-foreground hover:text-primary font-medium transition-all duration-300 hover:scale-105">
+            <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               AI Test
             </a>
-            <a href="#strategies" className="text-muted-foreground hover:text-primary font-medium transition-all duration-300 hover:scale-105">
+            <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               Strategies
             </a>
-            <a href="#counselling" className="text-muted-foreground hover:text-primary font-medium transition-all duration-300 hover:scale-105">
+            <a href="#counselling" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               Counselling
             </a>
           </nav>
 
           <div className="flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
-              className={`
-                hidden md:inline-flex text-muted-foreground hover:text-primary hover:bg-accent/10 cursor-pointer transition-all duration-300
-                ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
-              `}
-            >
-              Sign In
-            </Button>
-            <Button 
-              className={`
-                bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer
-                ${isScrolled ? 'px-4 py-1.5 text-sm' : 'px-6 py-2 text-sm'}
-              `}
-            >
-              Get Started
-            </Button>
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <span className="text-amber-800/80 text-sm">
+                  Welcome, {user.displayName || user.primaryEmail}
+                </span>
+                <Button 
+                  variant="ghost" 
+                  onClick={() => user.signOut()}
+                  className={`
+                    text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 cursor-pointer transition-all duration-300
+                    ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
+                  `}
+                >
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link href="/handler/sign-in">
+                  <Button 
+                    variant="ghost" 
+                    className={`
+                      hidden md:inline-flex text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 cursor-pointer transition-all duration-300
+                      ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
+                    `}
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/handler/sign-up">
+                  <Button 
+                    className={`
+                      bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer
+                      ${isScrolled ? 'px-4 py-1.5 text-sm' : 'px-6 py-2 text-sm'}
+                    `}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

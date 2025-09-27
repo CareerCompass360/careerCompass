@@ -39,11 +39,11 @@ const services = [
 
 export function ServicesSection() {
   return (
-    <section className="py-20 sm:py-32 bg-white">
+    <section className="py-20 sm:py-32 bg-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Our Core Services</h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <h2 className="text-3xl font-bold tracking-tight text-amber-800 sm:text-4xl">Our Core Services</h2>
+          <p className="mt-4 text-lg text-amber-800/80">
             Everything you need to discover, plan, and achieve your ideal career path
           </p>
         </div>
@@ -51,15 +51,15 @@ export function ServicesSection() {
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {services.map((service, index) => {
             const gradients = [
-              "from-primary to-accent",
-              "from-teal-500 to-cyan-500",
-              "from-purple-500 to-indigo-500", 
-              "from-orange-500 to-red-500"
+              "from-amber-600 to-amber-500",
+              "from-amber-500 to-yellow-500",
+              "from-amber-700 to-amber-600", 
+              "from-amber-600 to-yellow-400"
             ];
             return (
               <Card
                 key={index}
-                className="group bg-white border-blue-100/50 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group bg-stone-50 border-amber-100/50 hover:border-amber-800/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
                 <CardHeader>
                   <div className="flex items-center space-x-4">
@@ -67,15 +67,15 @@ export function ServicesSection() {
                       <service.icon className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-xl text-foreground">{service.title}</CardTitle>
+                      <CardTitle className="text-xl text-amber-800">{service.title}</CardTitle>
                     </div>
                   </div>
-                  <CardDescription className="text-muted-foreground mt-3 leading-relaxed">{service.description}</CardDescription>
+                  <CardDescription className="text-amber-800/80 mt-3 leading-relaxed">{service.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 mb-6">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-muted-foreground">
+                      <li key={featureIndex} className="flex items-center text-sm text-amber-800/80">
                         <div className={`w-2 h-2 bg-gradient-to-r ${gradients[index]} rounded-full mr-3`}></div>
                         {feature}
                       </li>

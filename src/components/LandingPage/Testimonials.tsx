@@ -34,20 +34,20 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="py-20 sm:py-32 bg-white">
+    <section id="testimonials" className="py-20 sm:py-32 bg-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-amber-800 sm:text-4xl">
             Success stories from our community
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 text-lg text-amber-800/80">
             See how professionals like you have transformed their careers with Career Compass
           </p>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="group bg-white border-blue-100/50 hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card key={index} className="group bg-stone-50 border-amber-100/50 hover:border-amber-800/30 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-8">
                 <div className="flex items-center space-x-1 mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -55,12 +55,12 @@ export function TestimonialsSection() {
                   ))}
                 </div>
 
-                <blockquote className="text-muted-foreground mb-6 leading-relaxed italic">&ldquo;{testimonial.content}&rdquo;</blockquote>
+                <blockquote className="text-amber-800/80 mb-6 leading-relaxed italic">&ldquo;{testimonial.content}&rdquo;</blockquote>
 
                 <div className="flex items-center space-x-4">
-                  <Avatar className="h-12 w-12 border-2 border-blue-100">
+                  <Avatar className="h-12 w-12 border-2 border-amber-100">
                     <AvatarImage src={testimonial.image || "/placeholder.svg"} alt={testimonial.name} />
-                    <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-amber-600 to-amber-500 text-white font-semibold">
                       {testimonial.name
                         .split(" ")
                         .map((n) => n[0])
@@ -68,8 +68,8 @@ export function TestimonialsSection() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <div className="font-semibold text-foreground">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="font-semibold text-amber-800">{testimonial.name}</div>
+                    <div className="text-sm text-amber-800/80">
                       {testimonial.role} at {testimonial.company}
                     </div>
                   </div>

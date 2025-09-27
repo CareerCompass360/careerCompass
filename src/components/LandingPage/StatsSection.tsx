@@ -34,11 +34,11 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="py-20 sm:py-24 bg-gradient-to-b from-blue-50/30 to-white">
+    <section className="py-20 sm:py-24 bg-gradient-to-b from-amber-50/30 to-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Proven Results That Speak</h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <h2 className="text-3xl font-bold tracking-tight text-amber-800 sm:text-4xl">Proven Results That Speak</h2>
+          <p className="mt-4 text-lg text-amber-800/80">
             Real impact on real careers - see why professionals choose Career Compass
           </p>
         </div>
@@ -47,25 +47,25 @@ export function StatsSection() {
           {stats.map((stat, index) => {
             const Icon = stat.icon
             const gradients = [
-              "from-primary to-accent",
-              "from-teal-500 to-cyan-500",
-              "from-purple-500 to-indigo-500",
-              "from-orange-500 to-red-500"
+              "from-amber-600 to-amber-500",
+              "from-amber-500 to-yellow-500",
+              "from-amber-700 to-amber-600",
+              "from-amber-600 to-yellow-400"
             ];
             return (
               <Card
                 key={index}
-                className="group relative overflow-hidden bg-white border-blue-100/50 p-8 text-center hover:shadow-xl transition-all duration-300 hover:border-primary/30 hover:-translate-y-1"
+                className="group relative overflow-hidden bg-stone-50 border-amber-100/50 p-8 text-center hover:shadow-xl transition-all duration-300 hover:border-amber-800/30 hover:-translate-y-1"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-amber-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div
                   className={`relative mx-auto h-14 w-14 bg-gradient-to-br ${gradients[index]} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md`}
                 >
                   <Icon className="h-7 w-7 text-white" />
                 </div>
-                <div className="relative text-4xl font-bold text-foreground mb-2">{stat.value}</div>
-                <div className="relative text-sm font-semibold text-foreground mb-1">{stat.label}</div>
-                <div className="relative text-xs text-muted-foreground">{stat.description}</div>
+                <div className="relative text-4xl font-bold text-amber-800 mb-2">{stat.value}</div>
+                <div className="relative text-sm font-semibold text-amber-800 mb-1">{stat.label}</div>
+                <div className="relative text-xs text-amber-800/80">{stat.description}</div>
               </Card>
             )
           })}
