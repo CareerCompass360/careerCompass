@@ -9,15 +9,17 @@ import { TestimonialsSection } from "@/components/LandingPage/Testimonials";
 
 export default function Home() {
   return (
-       <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      <HeroSection />
-      <StatsSection />
-      <ServicesSection />
-      <FeaturesSection />
-      <TestimonialsSection />
-      <CTASection />
-      <Footer />
+      <div className="pt-16">
+        <HeroSection />
+        <StatsSection />
+        <ServicesSection />
+        <FeaturesSection />
+        <TestimonialsSection />
+        <CTASection />
+        <Footer />
+      </div>
     </main>
   );
 }
