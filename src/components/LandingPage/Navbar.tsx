@@ -17,7 +17,7 @@ export function Navbar() {
             <a href="#careers" className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 hover:scale-105">
               About
             </a>
-            <a href="#careers" className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 hover:scale-105">
+            <a href="/careers" className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 hover:scale-105">
               Careers
             </a>
             <a href="#ai-test" className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 hover:scale-105">
@@ -32,10 +32,10 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" className="hidden md:inline-flex text-muted-foreground hover:text-primary hover:bg-accent/10">
+            <Button variant="ghost" className="hidden md:inline-flex text-muted-foreground hover:text-primary hover:bg-accent/10 cursor-pointer">
               Sign In
             </Button>
-            <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white px-6 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105">
+            <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white px-6 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105 cursor-pointer">
               Get Started
             </Button>
           </div>
