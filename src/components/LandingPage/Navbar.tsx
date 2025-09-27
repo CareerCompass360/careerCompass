@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Compass } from "lucide-react"
 
-export function Header() {
+export function Navbar() {
   return (
     <header className="border-b border-border/50 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,6 +14,9 @@ export function Header() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
+            <a href="#careers" className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 hover:scale-105">
+              About
+            </a>
             <a href="#careers" className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 hover:scale-105">
               Careers
             </a>
