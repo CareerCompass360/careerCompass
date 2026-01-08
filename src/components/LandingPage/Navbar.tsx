@@ -1,14 +1,16 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Compass } from "lucide-react"
+import { Compass, User as UserIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useUser } from "@stackframe/stack"
+import { useProfile } from "@/lib/useProfile"
 import Link from "next/link"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const user = useUser()
+  const { user: dbUser } = useProfile()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +47,7 @@ export function Navbar() {
           <div className="flex items-center space-x-3">
             <div 
               className={`
-                bg-gradient-to-br from-amber-600 to-amber-500 rounded-xl flex items-center justify-center shadow-md transition-all duration-500 ease-in-out
+                bg-linear-to-br from-amber-600 to-amber-500 rounded-xl flex items-center justify-center shadow-md transition-all duration-500 ease-in-out
                 ${isScrolled ? 'w-8 h-8' : 'w-9 h-9'}
               `}
             >
@@ -65,9 +67,9 @@ export function Navbar() {
             <a href="#careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               About
             </a>
-            <a href="/careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
+            <Link href="/careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               Careers
-            </a>
+            </Link>
             <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
               AI Test
             </a>
@@ -82,9 +84,20 @@ export function Navbar() {
           <div className="flex items-center space-x-3">
             {user ? (
               <div className="flex items-center space-x-3">
-                <span className="text-amber-800/80 text-sm">
-                  Welcome, {user.displayName || user.primaryEmail}
-                </span>
+                {dbUser && (
+                  <Link href={`/${dbUser.username}`}>
+                    <Button 
+                      variant="ghost"
+                      className={`
+                        text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 cursor-pointer transition-all duration-300 flex items-center gap-2
+                        ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
+                      `}
+                    >
+                      <UserIcon className="h-4 w-4" />
+                      Profile
+                    </Button>
+                  </Link>
+                )}
                 <Button 
                   variant="ghost" 
                   onClick={() => user.signOut()}
@@ -112,7 +125,7 @@ export function Navbar() {
                 <Link href="/handler/sign-up">
                   <Button 
                     className={`
-                      bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer
+                      bg-linear-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer
                       ${isScrolled ? 'px-4 py-1.5 text-sm' : 'px-6 py-2 text-sm'}
                     `}
                   >
