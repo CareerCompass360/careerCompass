@@ -13,3 +13,19 @@ datasource db {
   provider  = "postgresql"
 }
 
+model User {
+  id            String   @id @default(cuid())
+  stackAuthId   String   @unique
+  username      String   @unique
+  firstName     String?
+  lastName      String?
+  email         String   @unique
+  profilePicture String?
+  bio           String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([username])
+  @@index([stackAuthId])
+}
+
