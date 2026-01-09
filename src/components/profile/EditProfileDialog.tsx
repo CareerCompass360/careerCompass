@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Pencil } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { AddressFields, AddressForm } from './AddressFields';
 
 interface User {
   id: string;
@@ -40,8 +41,23 @@ export function EditProfileDialog({ user, isOwnProfile }: EditProfileDialogProps
       ? new Date(user.dateOfBirth).toISOString().split('T')[0] 
       : '',
     phone: user.phone || '',
-    address: user.address || '',
   });
+
+  // Address state as object
+  let initialAddress: AddressForm = { flat: '', area: '', pincode: '', city: '', state: '' };
+  try {
+    if (user.address) {
+      const parsed = JSON.parse(user.address);
+      initialAddress = {
+        flat: parsed.flat || '',
+        area: parsed.area || '',
+        pincode: parsed.pincode || '',
+        city: parsed.city || '',
+        state: parsed.state || '',
+      };
+    }
+  } catch {}
+  const [address, setAddress] = useState<AddressForm>(initialAddress);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +77,7 @@ export function EditProfileDialog({ user, isOwnProfile }: EditProfileDialogProps
           bio: formData.bio || null,
           dateOfBirth: formData.dateOfBirth || null,
           phone: formData.phone || null,
-          address: formData.address || null,
+          address: JSON.stringify(address),
         }),
       });
 
@@ -166,13 +182,8 @@ export function EditProfileDialog({ user, isOwnProfile }: EditProfileDialogProps
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Input
-              id="address"
-              value={formData.address}
-              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              placeholder="Enter your address"
-            />
+            <Label>Address</Label>
+            <AddressFields value={address} onChange={setAddress} />
           </div>
 
           {error && (

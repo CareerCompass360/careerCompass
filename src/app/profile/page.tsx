@@ -129,7 +129,22 @@ export default async function ProfilePage() {
                 <div className="flex-1">
                   <p className="text-sm font-medium mb-1">Address</p>
                   <p className="text-muted-foreground">
-                    {user.address || 'Not provided'}
+                    {(() => {
+                      if (!user.address) return 'Not provided';
+                      try {
+                        const addr = JSON.parse(user.address);
+                        const parts = [
+                          addr.flat,
+                          addr.area,
+                          addr.city,
+                          addr.state,
+                          addr.pincode
+                        ].filter(Boolean);
+                        return parts.length ? parts.join(', ') : 'Not provided';
+                      } catch {
+                        return user.address;
+                      }
+                    })()}
                   </p>
                 </div>
               </div>
