@@ -63,7 +63,7 @@ export function useProfile(): UseProfileResult {
 
   useEffect(() => {
     syncUser();
-  }, [user, syncUser]);
+  }, [syncUser]);
 
   return {
     user,
