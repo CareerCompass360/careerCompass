@@ -16,7 +16,7 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
-      setIsScrolled(scrollPosition > 50)
+      setIsScrolled(scrollPosition > 10)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -29,7 +29,7 @@ export function Navbar() {
         className={`
           fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out
           ${isScrolled 
-            ? 'md:mt-4 md:mx-8 md:rounded-2xl bg-stone-50/96 backdrop-blur-xl md:border-2 border-b md:border-amber-200/40 border-amber-100/50 md:shadow-2xl shadow-sm md:shadow-amber-200/30' 
+            ? 'md:mt-4 md:w-[900px] md:left-1/2 md:-translate-x-1/2 md:rounded-2xl bg-stone-50/96 backdrop-blur-xl md:border-2 border-b md:border-amber-200/40 border-amber-100/50 md:shadow-2xl shadow-lg md:shadow-amber-200/30 animate-navbar-float' 
             : 'mt-0 mx-0 rounded-none bg-stone-50/95 backdrop-blur-md border-b border-amber-100/50 shadow-sm'
           }
         `}
@@ -66,7 +66,7 @@ export function Navbar() {
             </Link>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
+              <a href="#about" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 About
               </a>
               <Link href="/careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
@@ -75,9 +75,9 @@ export function Navbar() {
               <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 AI Test
               </a>
-              <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
+              {/* <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 Strategies
-              </a>
+              </a> */}
               <a href="#counselling" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 Counselling
               </a>
@@ -96,8 +96,7 @@ export function Navbar() {
                         `}
                       >
                         <UserIcon className="h-4 w-4" />
-                        <span className="hidden lg:inline">Profile</span>
-                      </Button>
+                        </Button>
                     </Link>
                   )}
                   <Button 
@@ -122,16 +121,6 @@ export function Navbar() {
                       `}
                     >
                       Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/handler/sign-up" className="hidden md:inline-flex">
-                    <Button 
-                      className={`
-                        bg-linear-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer
-                        ${isScrolled ? 'px-4 py-1.5 text-sm' : 'px-6 py-2 text-sm'}
-                      `}
-                    >
-                      Get Started
                     </Button>
                   </Link>
                 </>
@@ -175,7 +164,7 @@ export function Navbar() {
       >
         <nav className="px-4 py-4 space-y-2">
           <a 
-            href="#careers" 
+            href="#about" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
             onClick={() => setIsMenuOpen(false)}
           >
@@ -195,13 +184,13 @@ export function Navbar() {
           >
             AI Test
           </a>
-          <a 
+          {/* <a 
             href="#strategies" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
             onClick={() => setIsMenuOpen(false)}
           >
             Strategies
-          </a>
+          </a> */}
           <a 
             href="#counselling" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
@@ -230,17 +219,6 @@ export function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sign In
-              </Link>
-              <Link 
-                href="/handler/sign-up"
-                className="block"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Button 
-                  className="w-full bg-linear-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white shadow-md hover:shadow-lg transition-all duration-300"
-                >
-                  Get Started
-                </Button>
               </Link>
             </>
           )}
