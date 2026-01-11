@@ -92,7 +92,7 @@ export function Navbar() {
               {user ? (
                 <div className="hidden md:flex items-center space-x-3">
                   {dbUser && (
-                    <Link href={`/${dbUser.username}`}>
+                    <Link href={`/profile`}>
                       <Button 
                         variant="ghost"
                         className={`
