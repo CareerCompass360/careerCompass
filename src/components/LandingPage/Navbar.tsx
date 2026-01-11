@@ -46,7 +46,14 @@ export function Navbar() {
               ${isScrolled ? 'h-14' : 'h-16'}
             `}
           >
-            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
+            <a
+              href="/"
+              className="flex items-center space-x-2 sm:space-x-3 group"
+              onClick={e => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
               <div 
                 className={`
                   bg-linear-to-br from-amber-600 to-amber-500 rounded-xl flex items-center justify-center shadow-md transition-all duration-500 ease-in-out
@@ -63,22 +70,20 @@ export function Navbar() {
               >
                 Career Compass
               </span>
-            </Link>
+            </a>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#about" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
-                About
+              <a href="#services" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}>
+                Services
               </a>
               <Link href="/careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 Careers
               </Link>
-              <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
+              <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('ai-test')?.scrollIntoView({ behavior: 'smooth' }); }}>
                 AI Test
               </a>
-              {/* <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
-                Strategies
-              </a> */}
-              <a href="#counselling" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
+              {/* <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('strategies')?.scrollIntoView({ behavior: 'smooth' }); }}>Strategies</a> */}
+              <a href="#counselling" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('counselling')?.scrollIntoView({ behavior: 'smooth' }); }}>
                 Counselling
               </a>
             </nav>
@@ -164,11 +169,11 @@ export function Navbar() {
       >
         <nav className="px-4 py-4 space-y-2">
           <a 
-            href="#about" 
+            href="#services" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={e => { e.preventDefault(); setIsMenuOpen(false); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
           >
-            About
+            Services
           </a>
           <Link 
             href="/careers" 
@@ -180,7 +185,7 @@ export function Navbar() {
           <a 
             href="#ai-test" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={e => { e.preventDefault(); setIsMenuOpen(false); document.getElementById('ai-test')?.scrollIntoView({ behavior: 'smooth' }); }}
           >
             AI Test
           </a>
@@ -194,7 +199,7 @@ export function Navbar() {
           <a 
             href="#counselling" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={e => { e.preventDefault(); setIsMenuOpen(false); document.getElementById('counselling')?.scrollIntoView({ behavior: 'smooth' }); }}
           >
             Counselling
           </a>
