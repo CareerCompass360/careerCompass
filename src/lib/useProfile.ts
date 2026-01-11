@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useUser } from '@stackframe/stack';
 
 interface DbUser {
@@ -61,8 +61,13 @@ export function useProfile(): UseProfileResult {
     }
   }, [stackUser]);
 
+  // Prevent duplicate sync in dev/StrictMode
+  const hasSyncedRef = useRef(false);
   useEffect(() => {
-    syncUser();
+    if (!hasSyncedRef.current) {
+      hasSyncedRef.current = true;
+      syncUser();
+    }
   }, [syncUser]);
 
   return {
