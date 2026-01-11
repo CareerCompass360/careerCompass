@@ -32,3 +32,76 @@ model User {
   @@index([stackAuthId])
 }
 
+model CounselorApplication {
+  id                        String   @id @default(cuid())
+  
+  // Basic Identity
+  fullName                  String
+  profilePhoto              String?
+  email                     String   @unique
+  mobileNumber              String
+  dateOfBirth               DateTime
+  gender                    String?
+  city                      String
+  country                   String
+  languagesSpoken           String[]
+  linkedinProfile           String
+  personalWebsite           String?
+  
+  // Professional Background
+  currentJobTitle           String
+  currentOrganization       String
+  totalYearsExperience      Int
+  primaryCareerDomain       String
+  subSpecialization         String
+  highestEducationLevel     String
+  degreeName                String
+  university                String
+  yearOfGraduation          Int
+  
+  // Career Counseling Expertise
+  studentTypes              String[]
+  careerAreasCanCounsel     String[]
+  topicsCanHelp             String[]
+  
+  // Real Experience Proof
+  hasFormedMentored         Boolean
+  numberOfPeopleGuided      Int?
+  whereMentored             String?
+  successStory              String?
+  
+  // Documents for Verification
+  resumeUrl                 String
+  degreeCertificateUrl      String
+  workExperienceProofUrl    String
+  counselingCertUrl         String?
+  
+  // Platform Readiness
+  willingOnlineCounseling   Boolean
+  preferredMode             String[]
+  availableHoursPerWeek     Int
+  preferredTimeSlots        String[]
+  timeZone                  String
+  
+  // Commercials
+  wantToCharge              Boolean
+  pricePer30Min             Float?
+  pricePer60Min             Float?
+  openToRevenueSharing      Boolean
+  
+  // Trust & Ethics
+  whyJoinPlatform           String
+  whatMakesQualified        String
+  agreedToTerms             Boolean
+  digitalSignature          String
+  
+  // Status
+  status                    String   @default("pending") // pending, approved, rejected
+  
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
