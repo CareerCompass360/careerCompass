@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Calendar, User, Phone, MapPin, Cake } from 'lucide-react';
-import { EditProfileDialog } from '@/components/profile/EditProfileDialog';
+import { EditProfileDialog } from '@/components/Profile/EditProfileDialog';
 import { Navbar } from '@/components/LandingPage/Navbar';
 
 export default async function ProfilePage() {

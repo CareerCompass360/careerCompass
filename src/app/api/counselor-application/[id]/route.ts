@@ -3,80 +3,80 @@ import { prisma } from "@/lib/prisma"
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params
-    const { action } = await request.json()
+    const { id } = await context.params;
+    const { action } = await request.json();
 
-    let updateData: any = {}
+    let updateData: any = {};
 
     switch (action) {
       case "approve":
-        updateData = { 
+        updateData = {
           status: "approved",
           rejectedAt: null,
-          removedAt: null 
-        }
-        break
+          removedAt: null,
+        };
+        break;
       case "reject":
-        updateData = { 
+        updateData = {
           status: "rejected",
-          rejectedAt: new Date() 
-        }
-        break
+          rejectedAt: new Date(),
+        };
+        break;
       case "remove":
-        updateData = { 
+        updateData = {
           status: "removed",
-          removedAt: new Date() 
-        }
-        break
+          removedAt: new Date(),
+        };
+        break;
       case "recover":
-        updateData = { 
+        updateData = {
           status: "pending",
           rejectedAt: null,
-          removedAt: null 
-        }
-        break
+          removedAt: null,
+        };
+        break;
       default:
         return NextResponse.json(
           { message: "Invalid action" },
           { status: 400 }
-        )
+        );
     }
 
     const updatedCounselor = await prisma.counselorApplication.update({
       where: { id },
       data: updateData,
-    })
+    });
 
-    return NextResponse.json(updatedCounselor)
+    return NextResponse.json(updatedCounselor);
   } catch (error) {
-    console.error("Error updating counselor:", error)
+    console.error("Error updating counselor:", error);
     return NextResponse.json(
       { message: "Failed to update counselor" },
       { status: 500 }
-    )
+    );
   }
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params
+    const { id } = await context.params;
 
     await prisma.counselorApplication.delete({
       where: { id },
-    })
+    });
 
-    return NextResponse.json({ message: "Counselor deleted successfully" })
+    return NextResponse.json({ message: "Counselor deleted successfully" });
   } catch (error) {
-    console.error("Error deleting counselor:", error)
+    console.error("Error deleting counselor:", error);
     return NextResponse.json(
       { message: "Failed to delete counselor" },
       { status: 500 }
-    )
+    );
   }
 }
