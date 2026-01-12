@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Mail, Calendar, User, Phone, MapPin, Cake } from 'lucide-react';
 import { EditProfileDialog } from '@/components/Profile/EditProfileDialog';
+import { UserBookings } from '@/components/Profile/UserBookings';
 import { Navbar } from '@/components/LandingPage/Navbar';
 
 export default async function ProfilePage() {
@@ -154,6 +155,10 @@ export default async function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* My Counseling Sessions */}
+          <UserBookings />
+
           {/* Career Activities Card - Placeholder for future features */}
           <Card className="mt-8">
             <CardHeader>

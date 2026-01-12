@@ -1,9 +1,43 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Users, ArrowRight, TrendingUp, BarChart3 } from "lucide-react"
+import { Users, ArrowRight, TrendingUp, BarChart3, Loader2 } from "lucide-react"
+
+interface Stats {
+  totalCounselors: number
+  totalBookings: number
+  pendingApplications: number
+}
 
 export default function AdminDashboard() {
+  const [stats, setStats] = useState<Stats>({
+    totalCounselors: 0,
+    totalBookings: 0,
+    pendingApplications: 0,
+  })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchStats()
+  }, [])
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch("/api/admin/stats")
+      const data = await response.json()
+      if (data.success) {
+        setStats(data.stats)
+      }
+    } catch (error) {
+      console.error("Error fetching stats:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -54,9 +88,18 @@ export default function AdminDashboard() {
           <p className="text-slate-600 mb-6 text-sm">
             Track platform growth and performance
           </p>
-          <Button disabled className="w-full h-10" variant="secondary">
-            Coming Soon
-          </Button>
+          {loading ? (
+            <div className="flex items-center justify-center h-10">
+              <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-slate-600">Total Sessions:</span>
+                <span className="font-bold text-slate-900">{stats.totalBookings}</span>
+              </div>
+            </div>
+          )}
         </Card>
 
         <Card className="p-6 bg-slate-50 border border-slate-200">
@@ -84,21 +127,29 @@ export default function AdminDashboard() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-            <div className="text-3xl font-bold text-slate-900 mb-1">-</div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">
+              {loading ? <Loader2 className="h-8 w-8 animate-spin text-slate-400" /> : stats.totalCounselors}
+            </div>
             <div className="text-xs font-medium text-slate-500 uppercase">Total Counselors</div>
           </div>
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-            <div className="text-3xl font-bold text-slate-900 mb-1">-</div>
-            <div className="text-xs font-medium text-slate-500 uppercase">Active Sessions</div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">
+              {loading ? <Loader2 className="h-8 w-8 animate-spin text-slate-400" /> : stats.totalBookings}
+            </div>
+            <div className="text-xs font-medium text-slate-500 uppercase">Total Sessions</div>
           </div>
           <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
-            <div className="text-3xl font-bold text-slate-900 mb-1">-</div>
+            <div className="text-3xl font-bold text-slate-900 mb-1">
+              {loading ? <Loader2 className="h-8 w-8 animate-spin text-slate-400" /> : stats.pendingApplications}
+            </div>
             <div className="text-xs font-medium text-slate-500 uppercase">Pending Applications</div>
           </div>
         </div>
-        <p className="text-slate-500 text-xs text-center mt-6">
-          Real-time statistics and metrics coming soon
-        </p>
+        {!loading && (
+          <p className="text-slate-500 text-xs text-center mt-6">
+            Updated in real-time from platform data
+          </p>
+        )}
       </Card>
     </div>
   )

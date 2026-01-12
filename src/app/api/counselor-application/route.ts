@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { stackServerApp } from "@/stack/server"
 
 export async function POST(request: Request) {
   try {
+    const user = await stackServerApp.getUser()
     const data = await request.json()
 
     // Validate required fields
@@ -28,6 +30,9 @@ export async function POST(request: Request) {
     // Create new counselor application
     const application = await prisma.counselorApplication.create({
       data: {
+        // Link to user
+        stackAuthId: user?.id || null,
+        
         // Basic Identity
         fullName: data.fullName,
         profilePhoto: data.profilePhoto || null,

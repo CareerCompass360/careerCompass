@@ -1,16 +1,19 @@
 "use client"
 
+import { useState } from "react"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { MapPin, Briefcase, GraduationCap, Globe, Calendar, Star } from "lucide-react"
+import { BookingDialog } from "./BookingDialog"
 
 interface CounselorCardProps {
   counselor: {
     id: string
     fullName: string
-    profilePhoto?: string
+    profilePhoto?: string | null
+    email: string
     currentJobTitle: string
     currentOrganization: string
     totalYearsExperience: number
@@ -23,12 +26,14 @@ interface CounselorCardProps {
     studentTypes: string[]
     careerAreasCanCounsel: string[]
     wantToCharge: boolean
-    pricePer30Min?: number
-    pricePer60Min?: number
+    pricePer30Min?: number | null
+    pricePer60Min?: number | null
   }
 }
 
 export function CounselorCard({ counselor }: CounselorCardProps) {
+  const [bookingDialogOpen, setBookingDialogOpen] = useState(false)
+
   const initials = counselor.fullName
     .split(" ")
     .map((n) => n[0])
@@ -42,7 +47,7 @@ export function CounselorCard({ counselor }: CounselorCardProps) {
       <CardHeader className="pb-4">
         <div className="flex items-start gap-4">
           <Avatar className="h-20 w-20 border-4 border-amber-100 shadow-md">
-            <AvatarImage src={counselor.profilePhoto} alt={counselor.fullName} />
+            <AvatarImage src={counselor.profilePhoto || ""} alt={counselor.fullName} />
             <AvatarFallback className="bg-gradient-to-br from-amber-400 to-yellow-400 text-white text-xl font-bold">
               {initials}
             </AvatarFallback>
@@ -154,12 +159,20 @@ export function CounselorCard({ counselor }: CounselorCardProps) {
         </div>
         
         <Button 
+          onClick={() => setBookingDialogOpen(true)}
           className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600 text-white shadow-md hover:shadow-lg transition-all duration-300"
         >
           <Calendar className="mr-2 h-4 w-4" />
           Book Session
         </Button>
       </CardFooter>
+
+      {/* Booking Dialog */}
+      <BookingDialog
+        open={bookingDialogOpen}
+        onOpenChange={setBookingDialogOpen}
+        counselor={counselor}
+      />
     </Card>
   )
 }

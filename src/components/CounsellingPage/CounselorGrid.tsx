@@ -10,7 +10,8 @@ import { Search, SlidersHorizontal, X } from "lucide-react"
 interface Counselor {
   id: string
   fullName: string
-  profilePhoto?: string
+  profilePhoto?: string | null
+  email: string
   currentJobTitle: string
   currentOrganization: string
   totalYearsExperience: number
@@ -23,8 +24,8 @@ interface Counselor {
   studentTypes: string[]
   careerAreasCanCounsel: string[]
   wantToCharge: boolean
-  pricePer30Min?: number
-  pricePer60Min?: number
+  pricePer30Min?: number | null
+  pricePer60Min?: number | null
 }
 
 interface CounselorGridProps {
