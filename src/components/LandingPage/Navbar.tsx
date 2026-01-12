@@ -83,7 +83,7 @@ export function Navbar() {
                 AI Test
               </a>
               {/* <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('strategies')?.scrollIntoView({ behavior: 'smooth' }); }}>Strategies</a> */}
-              <a href="#counselling" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('counselling')?.scrollIntoView({ behavior: 'smooth' }); }}>
+              <a href="/counselling" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 Counselling
               </a>
             </nav>
@@ -197,9 +197,9 @@ export function Navbar() {
             Strategies
           </a> */}
           <a 
-            href="#counselling" 
+            href="/counselling" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
-            onClick={e => { e.preventDefault(); setIsMenuOpen(false); document.getElementById('counselling')?.scrollIntoView({ behavior: 'smooth' }); }}
+            onClick={() => setIsMenuOpen(false)}
           >
             Counselling
           </a>
