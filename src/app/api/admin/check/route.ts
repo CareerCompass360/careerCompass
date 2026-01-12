@@ -5,9 +5,9 @@ import { stackServerApp } from "@/stack/server"
 export async function GET() {
   try {
     const user = await stackServerApp.getUser()
-    console.log("[ADMIN CHECK] Stack Auth user:", user)
+    // ...existing code...
     if (!user) {
-      console.log("[ADMIN CHECK] No user found in Stack Auth session.")
+      // ...existing code...
       return NextResponse.json({ isAdmin: false }, { status: 401 })
     }
 
@@ -16,7 +16,7 @@ export async function GET() {
       where: { stackAuthId: user.id },
       select: { isAdmin: true, email: true, id: true },
     })
-    console.log("[ADMIN CHECK] DB user:", dbUser)
+    // ...existing code...
 
     return NextResponse.json({ isAdmin: dbUser?.isAdmin || false })
   } catch (error) {
