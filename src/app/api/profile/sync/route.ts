@@ -73,7 +73,7 @@ export async function POST() {
   } catch (error) {
     console.error('Error syncing user:', error);
     return NextResponse.json(
-      { error: 'Failed to sync user data' },
+      { error: 'Failed to sync user data', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
