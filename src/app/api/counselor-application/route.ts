@@ -113,6 +113,14 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const email = searchParams.get("email")
+    const id = searchParams.get("id")
+
+    if (id) {
+      const application = await prisma.counselorApplication.findUnique({
+        where: { id },
+      })
+      return NextResponse.json(application)
+    }
 
     if (email) {
       const application = await prisma.counselorApplication.findUnique({
