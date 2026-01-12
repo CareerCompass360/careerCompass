@@ -5,7 +5,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Calendar, User, Phone, MapPin, Cake } from 'lucide-react';
-import { EditProfileDialog } from '@/components/profile/EditProfileDialog';
+import { EditProfileDialog } from '@/components/Profile/EditProfileDialog';
+import { UserBookings } from '@/components/Profile/UserBookings';
 import { Navbar } from '@/components/LandingPage/Navbar';
 
 export default async function ProfilePage() {
@@ -154,6 +155,10 @@ export default async function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* My Counseling Sessions */}
+          <UserBookings />
+
           {/* Career Activities Card - Placeholder for future features */}
           <Card className="mt-8">
             <CardHeader>
