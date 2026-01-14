@@ -53,6 +53,7 @@ export async function PATCH(
               pricePer60Min: application.pricePer60Min,
               timeZone: application.timeZone,
               languagesSpoken: application.languagesSpoken,
+              isActive: true, // Set active when approving
             },
             create: {
               applicationId: id,
@@ -73,6 +74,7 @@ export async function PATCH(
               pricePer60Min: application.pricePer60Min,
               timeZone: application.timeZone,
               languagesSpoken: application.languagesSpoken,
+              isActive: true, // Set active when creating
             }
           });
         }
@@ -88,13 +90,25 @@ export async function PATCH(
           status: "removed",
           removedAt: new Date(),
         };
+        
+        // Set isActive to false in CounselorProfile so they don't show on /counselling
+        await prisma.counselorProfile.updateMany({
+          where: { applicationId: id },
+          data: { isActive: false }
+        });
         break;
       case "recover":
+        // Always restore to pending status
         updateData = {
           status: "pending",
           rejectedAt: null,
           removedAt: null,
         };
+        // If they have a profile, reactivate it
+        await prisma.counselorProfile.updateMany({
+          where: { applicationId: id },
+          data: { isActive: true }
+        });
         break;
       default:
         return NextResponse.json(

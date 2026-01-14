@@ -5,6 +5,15 @@ import { stackServerApp } from "@/stack/server"
 export async function POST(request: Request) {
   try {
     const user = await stackServerApp.getUser()
+
+    // Check if user is authenticated
+    if (!user) {
+      return NextResponse.json(
+        { message: "You must be signed in to submit an application" },
+        { status: 401 }
+      )
+    }
+
     const data = await request.json()
 
     // Validate required fields

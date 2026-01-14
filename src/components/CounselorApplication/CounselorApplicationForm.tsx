@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, CheckCircle2, AlertCircle } from "lucide-react"
 import { BasicIdentity } from "./steps/BasicIdentity"
 import { ProfessionalBackground } from "./steps/ProfessionalBackground"
 import { CounselingExpertise } from "./steps/CounselingExpertise"
@@ -13,6 +13,7 @@ import { DocumentsVerification } from "./steps/DocumentsVerification"
 import { PlatformReadiness } from "./steps/PlatformReadiness"
 import { Commercials } from "./steps/Commercials"
 import { TrustEthics } from "./steps/TrustEthics"
+import { OTPDialog } from "./OTPDialog"
 import { toast } from "sonner"
 
 export interface CounselorFormData {
@@ -91,6 +92,9 @@ const steps = [
 export function CounselorApplicationForm() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showOTPDialog, setShowOTPDialog] = useState(false)
+  const [isOTPVerified, setIsOTPVerified] = useState(false)
+  const [validationErrors, setValidationErrors] = useState<string[]>([])
   const [formData, setFormData] = useState<CounselorFormData>({
     fullName: "",
     profilePhoto: "",
@@ -142,6 +146,86 @@ export function CounselorApplicationForm() {
     setFormData(prev => ({ ...prev, ...data }))
   }
 
+  const validateForm = (): { isValid: boolean; errors: string[] } => {
+    const errors: string[] = []
+
+    // Basic Identity validation
+    if (!formData.fullName.trim()) errors.push("Full name is required")
+    if (!formData.email.trim()) errors.push("Email is required")
+    if (!formData.mobileNumber.trim()) errors.push("Mobile number is required")
+    if (!formData.dateOfBirth) errors.push("Date of birth is required")
+    if (!formData.gender) errors.push("Gender is required")
+    if (!formData.city.trim()) errors.push("City is required")
+    if (!formData.country.trim()) errors.push("Country is required")
+    if (formData.languagesSpoken.length === 0) errors.push("At least one language is required")
+    if (!formData.linkedinProfile.trim()) errors.push("LinkedIn profile is required")
+
+    // Professional Background validation
+    if (!formData.currentJobTitle.trim()) errors.push("Current job title is required")
+    if (!formData.currentOrganization.trim()) errors.push("Current organization is required")
+    if (formData.totalYearsExperience <= 0) errors.push("Years of experience must be greater than 0")
+    if (!formData.primaryCareerDomain.trim()) errors.push("Primary career domain is required")
+    if (!formData.subSpecialization.trim()) errors.push("Sub-specialization is required")
+    if (!formData.highestEducationLevel.trim()) errors.push("Highest education level is required")
+    if (!formData.degreeName.trim()) errors.push("Degree name is required")
+    if (!formData.university.trim()) errors.push("University is required")
+    if (!formData.yearOfGraduation) errors.push("Year of graduation is required")
+
+    // Counseling Expertise validation
+    if (formData.studentTypes.length === 0) errors.push("At least one student type is required")
+    if (formData.careerAreasCanCounsel.length === 0) errors.push("At least one career area is required")
+    if (formData.topicsCanHelp.length === 0) errors.push("At least one topic is required")
+
+    // Experience Proof validation
+    if (formData.hasFormedMentored && formData.numberOfPeopleGuided === 0) {
+      errors.push("Number of people guided is required")
+    }
+
+    // Documents validation
+    if (!formData.resumeUrl.trim()) errors.push("Resume is required")
+    if (!formData.degreeCertificateUrl.trim()) errors.push("Degree certificate is required")
+    if (!formData.workExperienceProofUrl.trim()) errors.push("Work experience proof is required")
+
+    // Platform Readiness validation - CRITICAL CHECKS
+    if (!formData.willingOnlineCounseling) {
+      errors.push("❌ You must be willing to provide online counseling to join our platform")
+    }
+    if (formData.willingOnlineCounseling && formData.preferredMode.length === 0) {
+      errors.push("At least one preferred mode is required")
+    }
+    if (formData.willingOnlineCounseling && formData.availableHoursPerWeek <= 0) {
+      errors.push("Available hours per week must be greater than 0")
+    }
+    if (formData.willingOnlineCounseling && formData.preferredTimeSlots.length === 0) {
+      errors.push("At least one time slot is required")
+    }
+    if (formData.willingOnlineCounseling && !formData.timeZone.trim()) {
+      errors.push("Time zone is required")
+    }
+
+    // Commercials validation - CRITICAL CHECKS
+    if (formData.wantToCharge && formData.pricePer30Min <= 0) {
+      errors.push("Price for 30-minute session is required if you want to charge")
+    }
+    if (formData.wantToCharge && formData.pricePer60Min <= 0) {
+      errors.push("Price for 60-minute session is required if you want to charge")
+    }
+    if (!formData.openToRevenueSharing) {
+      errors.push("❌ You must be open to revenue sharing with the platform to join")
+    }
+
+    // Trust & Ethics validation
+    if (!formData.whyJoinPlatform.trim()) errors.push("Reason for joining platform is required")
+    if (!formData.whatMakesQualified.trim()) errors.push("Qualification statement is required")
+    if (!formData.agreedToTerms) errors.push("You must agree to the terms and conditions")
+    if (!formData.digitalSignature.trim()) errors.push("Digital signature is required")
+
+    return {
+      isValid: errors.length === 0,
+      errors,
+    }
+  }
+
   const handleNext = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1)
@@ -157,12 +241,48 @@ export function CounselorApplicationForm() {
   }
 
   const handleSubmit = async () => {
-    if (!formData.agreedToTerms) {
-      toast.error("Please agree to the terms and conditions")
+    // Validate form
+    const validation = validateForm()
+    
+    if (!validation.isValid) {
+      setValidationErrors(validation.errors)
+      toast.error("Please fill all required fields correctly")
+      window.scrollTo({ top: 0, behavior: 'smooth' })
       return
     }
 
+    // Clear validation errors
+    setValidationErrors([])
+
+    // Show OTP dialog
+    setShowOTPDialog(true)
+    
+    // Send OTP
+    try {
+      const response = await fetch("/api/counselor-application/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        toast.error(data.error || "Failed to send OTP")
+        setShowOTPDialog(false)
+      } else {
+        toast.success("OTP sent to your email")
+      }
+    } catch (error) {
+      toast.error("Failed to send OTP. Please try again.")
+      setShowOTPDialog(false)
+    }
+  }
+
+  const handleOTPVerified = async () => {
+    setIsOTPVerified(true)
     setIsSubmitting(true)
+
     try {
       const response = await fetch("/api/counselor-application", {
         method: "POST",
@@ -172,7 +292,6 @@ export function CounselorApplicationForm() {
 
       if (response.ok) {
         toast.success("Application submitted successfully!")
-        // Redirect to success page or home
         window.location.href = "/"
       } else {
         const error = await response.json()
@@ -222,6 +341,27 @@ export function CounselorApplicationForm() {
             Join our platform and help students shape their future
           </p>
         </div>
+
+        {/* Validation Errors */}
+        {validationErrors.length > 0 && (
+          <Card className="p-4 mb-6 bg-red-50 border-red-200">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-red-900 mb-2">
+                  Please fix the following errors:
+                </h3>
+                <ul className="space-y-1">
+                  {validationErrors.map((error, index) => (
+                    <li key={index} className="text-sm text-red-800">
+                      • {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* Progress Bar */}
         <Card className="p-6 mb-6 bg-white/80 backdrop-blur shadow-lg">
@@ -312,6 +452,14 @@ export function CounselorApplicationForm() {
             </Button>
           )}
         </div>
+
+        {/* OTP Dialog */}
+        <OTPDialog
+          open={showOTPDialog}
+          onOpenChange={setShowOTPDialog}
+          email={formData.email}
+          onVerified={handleOTPVerified}
+        />
       </div>
     </div>
   )

@@ -3,10 +3,16 @@ import { prisma } from "@/lib/prisma"
 
 export async function GET() {
   try {
-    // Fetch all active counselor profiles (which are created when application is approved)
+    // Fetch all active counselor profiles where application status is 'approved'
     const counselorProfiles = await prisma.counselorProfile.findMany({
       where: {
         isActive: true,
+        application: {
+          status: "approved",
+        },
+      },
+      include: {
+        application: true,
       },
       orderBy: [
         { yearsExperience: "desc" }, // More experienced counselors first
