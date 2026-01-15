@@ -3,20 +3,25 @@ import { prisma } from "@/lib/prisma"
 
 export async function GET() {
   try {
-    // Fetch all active counselor profiles where application status is 'approved'
+    // Only show counselors who are active and not removed/rejected for more than 7 days
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const counselorProfiles = await prisma.counselorProfile.findMany({
       where: {
         isActive: true,
         application: {
-          status: "approved",
+          OR: [
+            { status: "approved" },
+            { status: "removed", removedAt: { not: null, gte: sevenDaysAgo } },
+            { status: "rejected", rejectedAt: { not: null, gte: sevenDaysAgo } },
+          ],
         },
       },
       include: {
         application: true,
       },
       orderBy: [
-        { yearsExperience: "desc" }, // More experienced counselors first
-        { createdAt: "asc" }, // Then by registration date
+        { yearsExperience: "desc" },
+        { createdAt: "asc" },
       ],
     })
 
