@@ -1,6 +1,6 @@
 import { CTASection } from "@/components/LandingPage/CTASection";
-import { Footer } from "@/components/LandingPage/Footer";
-import { Navbar } from "@/components/LandingPage/Navbar";
+import { Footer } from "@/components/common/Footer";
+import { Navbar } from "@/components/common/Navbar";
 import { HeroSection } from "@/components/LandingPage/HeroSection";
 import { ServicesSection } from "@/components/LandingPage/ServiceSection";
 

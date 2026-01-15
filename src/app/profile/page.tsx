@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Mail, Calendar, User, Phone, MapPin, Cake } from 'lucide-react';
 import { EditProfileDialog } from '@/components/Profile/EditProfileDialog';
 import { UserBookings } from '@/components/Profile/UserBookings';
-import { Navbar } from '@/components/LandingPage/Navbar';
+import { Navbar } from '@/components/common/Navbar';
 
 export default async function ProfilePage() {
   // Get current user from Stack Auth

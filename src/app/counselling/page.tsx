@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Navbar } from "@/components/LandingPage/Navbar"
-import { Footer } from "@/components/LandingPage/Footer"
+import { Navbar } from "@/components/common/Navbar"
+import { Footer } from "@/components/common/Footer"
 import { CounsellingHero } from "@/components/CounsellingPage/CounsellingHero"
 import { CounselorGrid } from "@/components/CounsellingPage/CounselorGrid"
 import { Loader2 } from "lucide-react"
