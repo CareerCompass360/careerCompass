@@ -5,6 +5,15 @@ import { Resend } from "resend"
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: NextRequest) {
+      // Cleanup: Delete all OTPs older than 2 minutes
+      const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000)
+      await prisma.emailOTP.deleteMany({
+        where: {
+          createdAt: {
+            lt: twoMinutesAgo,
+          },
+        },
+      })
   try {
     const { email } = await req.json()
 
