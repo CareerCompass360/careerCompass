@@ -106,6 +106,9 @@ model CounselorApplication {
   rejectedAt                DateTime?
   removedAt                 DateTime?
   
+  // Relations
+  profile                   CounselorProfile?
+  
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
 
@@ -182,6 +185,7 @@ model CounselorProfile {
   
   // Link to CounselorApplication
   applicationId     String   @unique
+  application       CounselorApplication @relation(fields: [applicationId], references: [id])
   stackAuthId       String   @unique // Link to User
   
   // Profile Info (from approved application)
@@ -225,4 +229,17 @@ model CounselorProfile {
   @@index([stackAuthId])
   @@index([email])
   @@index([isActive])
+}
+
+model EmailOTP {
+  id            String   @id @default(cuid())
+  email         String
+  otp           String
+  createdAt     DateTime @default(now())
+  expiresAt     DateTime
+  attemptCount  Int      @default(1)
+  lastSentAt    DateTime @default(now())
+
+  @@index([email])
+  @@index([expiresAt])
 }

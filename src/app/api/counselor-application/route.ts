@@ -5,6 +5,15 @@ import { stackServerApp } from "@/stack/server"
 export async function POST(request: Request) {
   try {
     const user = await stackServerApp.getUser()
+
+    // Check if user is authenticated
+    if (!user) {
+      return NextResponse.json(
+        { message: "You must be signed in to submit an application" },
+        { status: 401 }
+      )
+    }
+
     const data = await request.json()
 
     // Validate required fields
@@ -26,6 +35,31 @@ export async function POST(request: Request) {
         { status: 409 }
       )
     }
+
+    // Before creating, cleanup old rejected/removed applications older than 7 days
+    await (async function(){
+      try {
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+
+        const oldApps = await prisma.counselorApplication.findMany({
+          where: {
+            OR: [
+              { status: "removed", removedAt: { lt: sevenDaysAgo } },
+              { status: "rejected", rejectedAt: { lt: sevenDaysAgo } },
+            ],
+          },
+          select: { id: true },
+        })
+
+        if (oldApps && oldApps.length > 0) {
+          const ids = oldApps.map(a => a.id)
+          await prisma.counselorProfile.deleteMany({ where: { applicationId: { in: ids } } })
+          await prisma.counselorApplication.deleteMany({ where: { id: { in: ids } } })
+        }
+      } catch (err) {
+        console.error("Error during pre-submission cleanup:", err)
+      }
+    })()
 
     // Create new counselor application
     const application = await prisma.counselorApplication.create({
