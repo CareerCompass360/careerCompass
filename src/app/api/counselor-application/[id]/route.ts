@@ -1,6 +1,43 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
+// Helper: delete counselor applications that are rejected/removed older than 7 days
+async function cleanupOldApplications() {
+  try {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+
+    const oldApps = await prisma.counselorApplication.findMany({
+      where: {
+        OR: [
+          { status: "removed", removedAt: { lt: sevenDaysAgo } },
+          { status: "rejected", rejectedAt: { lt: sevenDaysAgo } },
+        ],
+      },
+      select: { id: true },
+    })
+
+    if (!oldApps || oldApps.length === 0) return
+
+    const ids = oldApps.map(a => a.id)
+
+    // Delete related counselor profiles first (to avoid FK issues)
+    await prisma.counselorProfile.deleteMany({
+      where: {
+        applicationId: { in: ids },
+      },
+    })
+
+    // Delete the old applications
+    const result = await prisma.counselorApplication.deleteMany({
+      where: { id: { in: ids } },
+    })
+
+    console.log(`cleanupOldApplications: deleted ${result.count} old applications`)
+  } catch (error) {
+    console.error("Error during cleanupOldApplications:", error)
+  }
+}
+
 export async function PATCH(
   request: Request,
   context: { params: Promise<{ id: string }> }
@@ -121,6 +158,9 @@ export async function PATCH(
       where: { id },
       data: updateData,
     });
+
+    // After performing action, run cleanup to remove any old rejected/removed applications
+    await cleanupOldApplications()
 
     return NextResponse.json(updatedCounselor);
   } catch (error) {
