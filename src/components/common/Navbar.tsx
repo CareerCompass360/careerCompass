@@ -46,13 +46,9 @@ export function Navbar() {
               ${isScrolled ? 'h-14' : 'h-16'}
             `}
           >
-            <a
+            <Link
               href="/"
               className="flex items-center space-x-2 sm:space-x-3 group"
-              onClick={e => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
             >
               <div 
                 className={`
@@ -70,16 +66,16 @@ export function Navbar() {
               >
                 Career Compass
               </span>
-            </a>
+            </Link>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#services" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}>
+              <a href="#services" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); if (window.location.pathname !== '/') { window.location.href = '/#services'; } else { document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); } }}>
                 Services
               </a>
               <Link href="/careers" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105">
                 Careers
               </Link>
-              <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('ai-test')?.scrollIntoView({ behavior: 'smooth' }); }}>
+              <a href="#ai-test" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); if (window.location.pathname !== '/') { window.location.href = '/#ai-test'; } else { document.getElementById('ai-test')?.scrollIntoView({ behavior: 'smooth' }); } }}>
                 AI Test
               </a>
               {/* <a href="#strategies" className="text-amber-800/80 hover:text-amber-700 font-medium transition-all duration-300 hover:scale-105" onClick={e => { e.preventDefault(); document.getElementById('strategies')?.scrollIntoView({ behavior: 'smooth' }); }}>Strategies</a> */}
@@ -171,7 +167,7 @@ export function Navbar() {
           <a 
             href="#services" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
-            onClick={e => { e.preventDefault(); setIsMenuOpen(false); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
+            onClick={e => { e.preventDefault(); setIsMenuOpen(false); if (window.location.pathname !== '/') { window.location.href = '/#services'; } else { document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); } }}
           >
             Services
           </a>
@@ -185,7 +181,7 @@ export function Navbar() {
           <a 
             href="#ai-test" 
             className="block py-3 px-4 text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg font-medium transition-all duration-300"
-            onClick={e => { e.preventDefault(); setIsMenuOpen(false); document.getElementById('ai-test')?.scrollIntoView({ behavior: 'smooth' }); }}
+            onClick={e => { e.preventDefault(); setIsMenuOpen(false); if (window.location.pathname !== '/') { window.location.href = '/#ai-test'; } else { document.getElementById('ai-test')?.scrollIntoView({ behavior: 'smooth' }); } }}
           >
             AI Test
           </a>
