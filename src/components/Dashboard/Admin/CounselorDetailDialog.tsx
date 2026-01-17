@@ -100,7 +100,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="!max-w-5xl max-h-[95vh] overflow-hidden flex flex-col bg-white !p-0 rounded-2xl shadow-2xl">
+      <DialogContent showCloseButton={false} className="!max-w-5xl max-h-[95vh] overflow-hidden flex flex-col bg-white !p-0 rounded-2xl shadow-2xl">
         {/* Header Section */}
         <div className="flex-shrink-0 border-b border-slate-100 px-8 py-7 flex items-start justify-between bg-gradient-to-r from-slate-50 to-white">
           <div className="flex-1">
@@ -389,7 +389,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <button
                 onClick={() => window.open(counselor.resumeUrl, "_blank")}
-                className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group"
+                className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group cursor-pointer"
               >
                 <FileText className="h-8 w-8 text-slate-600 group-hover:text-slate-900 transition-colors duration-200" />
                 <span className="text-xs font-bold text-center">Resume / CV</span>
@@ -397,7 +397,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
 
               <button
                 onClick={() => window.open(counselor.degreeCertificateUrl, "_blank")}
-                className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group"
+                className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group cursor-pointer"
               >
                 <GraduationCap className="h-8 w-8 text-slate-600 group-hover:text-slate-900 transition-colors duration-200" />
                 <span className="text-xs font-bold text-center">Degree Certificate</span>
@@ -405,7 +405,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
 
               <button
                 onClick={() => window.open(counselor.workExperienceProofUrl, "_blank")}
-                className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group"
+                className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group cursor-pointer"
               >
                 <Briefcase className="h-8 w-8 text-slate-600 group-hover:text-slate-900 transition-colors duration-200" />
                 <span className="text-xs font-bold text-center">Work Experience</span>
@@ -414,7 +414,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
               {counselor.counselingCertUrl && (
                 <button
                   onClick={() => window.open(counselor.counselingCertUrl, "_blank")}
-                  className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group"
+                  className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 text-slate-900 group cursor-pointer"
                 >
                   <Award className="h-8 w-8 text-slate-600 group-hover:text-slate-900 transition-colors duration-200" />
                   <span className="text-xs font-bold text-center">Counseling Cert</span>

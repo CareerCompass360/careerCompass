@@ -90,7 +90,7 @@ export function CounselorCard({ counselor, onViewDetails }: CounselorCardProps) 
         {/* View Details Button */}
         <Button
           onClick={onViewDetails}
-          className="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-2"
+          className="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-2 cursor-pointer"
         >
           <Eye className="h-4 w-4" />
           View Full Details
