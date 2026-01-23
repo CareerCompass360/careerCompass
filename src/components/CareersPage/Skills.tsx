@@ -5,10 +5,9 @@ import { Award } from "lucide-react"
 
 interface SkillsGridProps {
   skills?: string[]
-  careerName?: string
 }
 
-export default function SkillsGrid({ skills, careerName }: SkillsGridProps) {
+export default function SkillsGrid({ skills }: SkillsGridProps) {
   // Default skills for any career if none provided
   const defaultSkills = [
     "Problem Solving",
