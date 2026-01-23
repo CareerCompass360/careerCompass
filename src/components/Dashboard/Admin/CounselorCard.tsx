@@ -65,7 +65,7 @@ export function CounselorCard({ counselor, onViewDetails }: CounselorCardProps) 
         </div>
 
         {/* Details Grid */}
-        <div className="space-y-3 flex-grow">
+        <div className="space-y-3 grow">
           <div className="flex items-center gap-2 text-sm text-slate-700">
             <Briefcase className="h-4 w-4 text-slate-600" />
             <span className="font-medium">{counselor.currentJobTitle}</span>
