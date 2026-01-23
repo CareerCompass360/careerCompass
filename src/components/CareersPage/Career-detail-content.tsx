@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, BookOpen, Target, Briefcase } from "lucide-react"
+import { BookOpen, Briefcase } from "lucide-react"
 import { careersData } from "@/lib/career-data"
 import { getCareerByName, getBlogForCareer } from "@/lib/firestore-utils"
 import CareerPathVisualization from "@/components/CareersPage/Roadmap"
