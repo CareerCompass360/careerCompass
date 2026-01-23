@@ -64,10 +64,10 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
 
   if (!category) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-4">Career Not Found</h1>
-          <Link href="/careers" className="text-accent font-semibold hover:underline">
+          <h1 className="text-3xl font-bold text-amber-950 mb-4">Career Not Found</h1>
+          <Link href="/careers" className="text-yellow-600 font-semibold hover:text-yellow-700">
             Back to Home
           </Link>
         </div>
@@ -76,27 +76,27 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-white">
       {/* Header */}
-      <section className="px-4 md:px-8 py-12 md:py-20 border-b border-border bg-card">
+      <section className="px-4 md:px-8 py-12 md:py-20 border-b border-yellow-200 bg-gradient-to-br from-yellow-50 to-white">
         <div className="max-w-7xl mx-auto">
           <Link
             href={`/careers/category/${category.id}`}
-            className="text-accent font-semibold mb-6 inline-flex items-center hover:opacity-80"
+            className="text-amber-700 font-semibold mb-6 inline-flex items-center hover:text-yellow-700"
           >
             ← Back to {category.category}
           </Link>
 
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">{decodedCareerName}</h1>
-            <p className="text-lg text-muted-foreground mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-amber-950 mb-4">{decodedCareerName}</h1>
+            <p className="text-lg text-amber-800 mb-6">
               A career in {decodedCareerName} within the {category?.category} field offers rewarding opportunities for professional growth.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 text-sm">
-                <Briefcase className="w-5 h-5 text-accent" />
-                <span className="text-muted-foreground">{category?.category}</span>
+                <Briefcase className="w-5 h-5 text-yellow-600" />
+                <span className="text-amber-800">{category?.category}</span>
               </div>
             </div>
           </motion.div>
@@ -106,26 +106,26 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
       {/* Content Sections */}
       {loading ? (
         <div className="px-4 md:px-8 py-20 flex items-center justify-center">
-          <p className="text-muted-foreground">Loading career details...</p>
+          <p className="text-amber-800">Loading career details...</p>
         </div>
       ) : (
         <div className="px-4 md:px-8 py-16 md:py-20 space-y-16">
           <div className="max-w-7xl mx-auto w-full">
             {/* Career Path */}
             <div>
-              <h2 className="text-3xl font-bold text-foreground mb-8">Career Path & Progression</h2>
+              <h2 className="text-3xl font-bold text-amber-950 mb-8">Career Path & Progression</h2>
               <CareerPathVisualization careerName={decodedCareerName} path={career?.careerPath} />
             </div>
 
             {/* Skills */}
             <div>
-              <h2 className="text-3xl font-bold text-foreground mb-8">Required Skills</h2>
+              <h2 className="text-3xl font-bold text-amber-950 mb-8">Required Skills</h2>
               <SkillsGrid careerName={decodedCareerName} skills={career?.skillsRequired} />
             </div>
 
             {/* Resources */}
             <div>
-              <h2 className="text-3xl font-bold text-foreground mb-8">Learning Resources</h2>
+              <h2 className="text-3xl font-bold text-amber-950 mb-8">Learning Resources</h2>
               <ResourcesSection 
                 careerName={decodedCareerName} 
                 online={career?.resources?.online}
@@ -136,14 +136,14 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
             {/* Blog Section */}
             {blog ? (
               <div>
-                <h2 className="text-3xl font-bold text-foreground mb-8">Insights & FAQs</h2>
+                <h2 className="text-3xl font-bold text-amber-950 mb-8">Insights & FAQs</h2>
                 <BlogSection blog={blog} />
               </div>
             ) : (
-              <section className="border-t border-border pt-16">
-                <div className="bg-card border border-border rounded-lg p-8 text-center">
-                  <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">Blog content coming soon for this career.</p>
+              <section className="border-t border-yellow-200 pt-16">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
+                  <BookOpen className="w-12 h-12 text-amber-700 mx-auto mb-4" />
+                  <p className="text-amber-800">Blog content coming soon for this career.</p>
                 </div>
               </section>
             )}
@@ -153,3 +153,4 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
     </main>
   )
 }
+  

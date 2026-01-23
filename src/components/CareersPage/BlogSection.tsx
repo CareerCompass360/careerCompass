@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { Lightbulb, MessageCircle, BookOpen, ChevronDown } from "lucide-react"
 
 interface BlogContent {
   question: string
@@ -27,143 +28,193 @@ interface BlogSectionProps {
 
 export default function BlogSection(props: BlogSectionProps) {
   const blog = props.blog
-  const title = props.title || blog?.title || "Career Insights"
+  const title = props.title || blog?.title || "Career Insights & Expertise"
   const quote = props.quote || blog?.quote || "Success comes to those who prepare for it."
   const quoteAuthor = props.quoteAuthor || blog?.quoteAuth || "Industry Expert"
   const author = props.author || blog?.author || "Career Coach"
   const content = props.content || blog?.data || "Explore the key aspects of this exciting career path and discover what it takes to succeed."
   const faqData = props.faqData || blog?.content || []
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const [openFAQ, setOpenFAQ] = useState<number | null>(0)
 
   return (
-    <div className="py-20 md:py-28 px-4 md:px-8">
-      <div className="max-w-4xl mx-auto space-y-20">
-        {/* Blog Article Section - CHANGE: proper article layout with quote and full content */}
-        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          {/* Article Header */}
-          <div className="mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3 text-balance">{title}</h2>
-            <div className="flex items-center gap-4 text-muted-foreground">
-              <span className="text-sm font-semibold">By {author}</span>
-            </div>
+    <div className="py-20 md:py-32 px-4 md:px-8 bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-100 border border-yellow-300 mb-6">
+            <Lightbulb className="w-4 h-4 text-amber-700" />
+            <span className="text-sm font-semibold text-amber-900">Expert Insights</span>
           </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-amber-950 mb-4">
+            {title}
+          </h2>
+          <p className="text-lg text-amber-800 max-w-2xl mx-auto">
+            Deep dive into career success factors, industry trends, and expert answers to your most pressing questions
+          </p>
+        </motion.div>
 
-          {/* Featured Quote */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+          {/* Left Column - Article & Quote */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-            className="bg-accent/5 border-l-4 border-accent rounded-lg p-8 md:p-10 mb-12"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-2 space-y-10"
           >
-            <p className="text-xl md:text-2xl font-semibold text-foreground italic mb-4 text-balance leading-relaxed">
-              "{quote}"
-            </p>
-            <p className="text-muted-foreground font-semibold">— {quoteAuthor}</p>
+            {/* Featured Quote */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="relative group"
+            >
+              <div className="relative bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-8 md:p-10 hover:border-yellow-400 transition-all hover:shadow-md">
+                <div className="absolute -top-5 -left-5">
+                  <div className="text-5xl text-yellow-300">"</div>
+                </div>
+                <p className="text-xl md:text-2xl font-semibold text-amber-950 italic mb-6 leading-relaxed">
+                  {quote}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-yellow-200"></div>
+                  <div>
+                    <p className="font-bold text-amber-950">{quoteAuthor}</p>
+                    <p className="text-sm text-amber-700">Industry Expert</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Article Content */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white border-2 border-yellow-200 rounded-2xl p-8 md:p-10 space-y-6 hover:border-yellow-300 transition-all"
+            >
+              <div className="space-y-6">
+                {content.split("\n\n").map((paragraph, index) => (
+                  <motion.p
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + index * 0.05 }}
+                    className="text-base md:text-lg leading-relaxed text-amber-900"
+                  >
+                    {paragraph}
+                  </motion.p>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Article Content */}
+          {/* Right Column - Key Takeaways & Author Info */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="prose prose-lg max-w-none"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
-            <div className="text-lg leading-relaxed text-muted-foreground space-y-6">
-              {content.split("\n\n").map((paragraph, index) => (
-                <motion.p
-                  key={index}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 + index * 0.05 }}
-                  className="text-base md:text-lg leading-relaxed text-muted-foreground"
-                >
-                  {paragraph}
-                </motion.p>
+            {/* Author Card */}
+            <div className="sticky top-24 bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6 hover:border-yellow-400 transition-all shadow-sm">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 rounded-full bg-yellow-200 flex items-center justify-center text-2xl">👨‍💼</div>
+                <div>
+                  <h4 className="font-bold text-amber-950">{author}</h4>
+                  <p className="text-sm text-amber-700">Career Expert</p>
+                </div>
+              </div>
+              <p className="text-sm text-amber-800 leading-relaxed">
+                Industry veteran with deep insights into career development and success strategies
+              </p>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="space-y-3">
+              {[
+                { icon: BookOpen, label: "Comprehensive Guide", value: "50+ Pages" },
+                { icon: MessageCircle, label: "Expert Q&A", value: faqData.length > 0 ? `${faqData.length}+ FAQs` : "Extended" },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white border-2 border-yellow-200 rounded-lg p-4 hover:border-yellow-400 transition-all">
+                  <div className="flex items-center gap-3 mb-2">
+                    <item.icon className="w-5 h-5 text-amber-700" />
+                    <p className="text-sm font-semibold text-amber-950">{item.label}</p>
+                  </div>
+                  <p className="text-lg font-bold text-yellow-700">{item.value}</p>
+                </div>
               ))}
             </div>
           </motion.div>
-        </motion.section>
+        </div>
 
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+        {/* FAQ Section - Beautiful Accordion */}
+        {faqData && faqData.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-20 pt-20 border-t-2 border-yellow-200"
+          >
+            <div className="text-center mb-16">
+              <h3 className="text-3xl md:text-4xl font-bold text-amber-950 mb-3">
+                Frequently Asked Questions
+              </h3>
+              <p className="text-lg text-amber-800">Get answers to common career questions</p>
+            </div>
 
-        {/* FAQ Section - CHANGE: interactive card-based design with better visual hierarchy */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
-          {/* FAQ Header */}
-          <div className="mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Frequently Asked Questions</h3>
-            <p className="text-muted-foreground">Get answers to common questions about this career path</p>
-          </div>
-
-          {/* FAQ Items - Interactive Accordion */}
-          <div className="space-y-4">
-            {faqData && faqData.length > 0 && faqData.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.08 }}
-                className="group"
-              >
-                <motion.button
-                  onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                  className="w-full text-left"
-                  whileTap={{ scale: 0.98 }}
+            <div className="max-w-4xl mx-auto space-y-4">
+              {faqData.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
                 >
-                  <div className="relative bg-card border-2 border-border rounded-xl p-6 md:p-8 hover:border-accent/50 transition-all duration-300 group-hover:bg-secondary/30 overflow-hidden">
-                    {/* Background gradient on hover */}
-                    <div
-                      className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      aria-hidden="true"
-                    ></div>
-
-                    {/* Content */}
-                    <div className="relative flex items-start justify-between gap-4">
-                      <div className="flex-1 flex items-start gap-4">
-                        {/* Number indicator */}
-                        <span className="text-lg font-bold text-accent flex-shrink-0 min-w-8">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        {/* Question */}
-                        <h4 className="text-lg md:text-xl font-bold text-foreground text-balance leading-relaxed group-hover:text-accent transition-colors">
+                  <button
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full group"
+                  >
+                    <div className="bg-white border-2 border-yellow-200 rounded-2xl hover:border-yellow-400 transition-all duration-300 overflow-hidden hover:shadow-md">
+                      <div className="flex items-center justify-between p-6 md:p-8 cursor-pointer">
+                        <h4 className="text-lg md:text-xl font-bold text-amber-950 text-left group-hover:text-yellow-700 transition-colors">
                           {item.question}
                         </h4>
+                        <motion.div
+                          animate={{ rotate: openFAQ === index ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="ml-4 flex-shrink-0"
+                        >
+                          <ChevronDown className="w-6 h-6 text-amber-700 group-hover:text-yellow-700 transition-colors" />
+                        </motion.div>
                       </div>
-                      {/* Expand/Collapse Icon */}
-                      <motion.div
-                        animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="flex-shrink-0 mt-1 text-accent text-2xl"
-                      >
-                        ↓
-                      </motion.div>
-                    </div>
-                  </div>
-                </motion.button>
 
-                {/* Answer - Expandable Content */}
-                <AnimatePresence>
-                  {activeIndex === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0, y: -10 }}
-                      animate={{ opacity: 1, height: "auto", y: 0 }}
-                      exit={{ opacity: 0, height: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="bg-secondary/20 border-2 border-t-0 border-border rounded-b-xl p-6 md:p-8">
-                        <p className="text-base leading-relaxed text-muted-foreground text-balance">{item.answer}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+                      {/* Accordion Content */}
+                      <AnimatePresence>
+                        {openFAQ === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-yellow-200 bg-yellow-50/40">
+                              <p className="text-amber-800 text-base leading-relaxed">
+                                {item.answer}
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+        )}
       </div>
     </div>
   )

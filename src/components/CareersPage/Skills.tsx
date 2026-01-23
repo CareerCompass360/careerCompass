@@ -44,7 +44,7 @@ export default function SkillsGrid({ skills, careerName }: SkillsGridProps) {
   const softSkills = displaySkills.slice(Math.ceil(displaySkills.length / 2))
 
   return (
-    <section className="py-16 px-4 md:px-8">
+    <section className="py-16 px-4 md:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,13 +53,13 @@ export default function SkillsGrid({ skills, careerName }: SkillsGridProps) {
           className="text-center mb-12"
         >
           <div className="inline-block mb-4">
-            <span className="text-sm font-semibold text-accent tracking-widest uppercase">Competencies</span>
+            <span className="text-sm font-semibold text-amber-700 tracking-widest uppercase">Competencies</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 flex items-center justify-center gap-3 text-balance">
-            <Award className="w-8 h-8 text-accent" />
+          <h2 className="text-4xl md:text-5xl font-bold text-amber-950 mb-4 flex items-center justify-center gap-3">
+            <Award className="w-8 h-8 text-yellow-600" />
             Essential Skills Required
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-amber-800 max-w-2xl mx-auto">
             Master these core competencies to excel in your career path
           </p>
         </motion.div>
@@ -79,12 +79,12 @@ export default function SkillsGrid({ skills, careerName }: SkillsGridProps) {
               transition={{ duration: 0.2 }}
               className="group"
             >
-              <div className="bg-card border-2 border-border rounded-xl p-4 md:p-6 h-full flex items-center gap-4 hover:border-accent/50 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                  <span className="text-lg font-bold text-accent">▸</span>
+              <div className="bg-white border-2 border-yellow-200 rounded-xl p-4 md:p-6 h-full flex items-center gap-4 hover:border-yellow-400 hover:shadow-md transition-all duration-300 cursor-pointer">
+                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-yellow-100 flex items-center justify-center group-hover:bg-yellow-200 transition-colors">
+                  <span className="text-lg font-bold text-amber-700">▸</span>
                 </div>
                 <div className="flex-1">
-                  <p className="font-semibold text-foreground text-sm md:text-base group-hover:text-accent transition-colors">
+                  <p className="font-semibold text-amber-950 text-sm md:text-base group-hover:text-yellow-700 transition-colors">
                     {skill}
                   </p>
                 </div>
