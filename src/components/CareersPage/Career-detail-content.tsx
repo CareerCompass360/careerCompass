@@ -25,12 +25,10 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
 
   // Find static category and career
   let category: any = null
-  let careerInfo: any = null
   for (const cat of careersData || []) {
     const found = cat.careers?.find((c: any) => c.name === decodedCareerName)
     if (found) {
       category = cat
-      careerInfo = found
       break
     }
   }
