@@ -119,14 +119,13 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
             {/* Skills */}
             <div>
               <h2 className="text-3xl font-bold text-amber-950 mb-8">Required Skills</h2>
-              <SkillsGrid careerName={decodedCareerName} skills={career?.skillsRequired} />
+              <SkillsGrid skills={career?.skillsRequired} />
             </div>
 
             {/* Resources */}
             <div>
               <h2 className="text-3xl font-bold text-amber-950 mb-8">Learning Resources</h2>
               <ResourcesSection 
-                careerName={decodedCareerName} 
                 online={career?.resources?.online}
                 offline={career?.resources?.offline}
               />
