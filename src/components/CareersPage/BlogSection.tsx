@@ -96,7 +96,7 @@ export default function BlogSection(props: BlogSectionProps) {
               className="bg-white border-2 border-yellow-200 rounded-2xl p-8 md:p-10 space-y-6 hover:border-yellow-300 transition-all"
             >
               <div className="space-y-6">
-                {content.split("\n\n").map((paragraph, index) => (
+                {(content ?? "Explore the key aspects...").split("\n\n").map((paragraph, index) => (
                   <motion.p
                     key={index}
                     initial={{ opacity: 0, y: 10 }}
