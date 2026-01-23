@@ -13,8 +13,8 @@ export async function getCareerByName(careerName: string): Promise<Career | null
       const doc = querySnapshot.docs[0]
       const data = doc.data()
       return {
-        name: data.careerName || careerName,
-        careerName: data.careerName || careerName,
+        name: data.careerName || data.name || careerName,
+        careerName: data.careerName || data.name || careerName,
         category: data.category,
         description: data.description,
         skillsRequired: data.skillsRequired || [],
