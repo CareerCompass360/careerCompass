@@ -10,6 +10,7 @@ import SkillsGrid from "@/components/CareersPage/Skills"
 import ResourcesSection from "@/components/CareersPage/Resources"
 import BlogSection from "@/components/CareersPage/BlogSection"
 import { motion } from "framer-motion"
+import { Footer } from "../common/Footer"
 
 type CareerDetailPageContentProps = {
   careerName: string
@@ -150,7 +151,7 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
           </div>
         </div>
       )}
+      <Footer/>
     </main>
   )
 }
-  

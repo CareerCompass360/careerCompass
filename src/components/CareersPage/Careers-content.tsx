@@ -5,6 +5,8 @@ import { Code, BookOpen, Target, Briefcase, TrendingUp, Users, Sparkles, ArrowRi
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { careersData } from "@/lib/career-data"
+import { Footer } from "../common/Footer"
+import { Navbar } from "../common/Navbar"
 
 export default function LandingPageContentVariation1() {
   const containerVariants = {
@@ -24,8 +26,9 @@ export default function LandingPageContentVariation1() {
 
   return (
     <main className="min-h-screen bg-white">
+      <Navbar/>
       {/* Hero Section - Extended */}
-      <section className="relative px-4 md:px-8 py-16 md:py-32 overflow-hidden bg-gradient-to-b from-white to-yellow-50/30">
+      <section className="relative px-4 md:px-8 py-16 md:py-48 overflow-hidden bg-gradient-to-b from-white to-yellow-50/30">
         <div className="relative max-w-7xl mx-auto">
           {/* Main Hero Content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-20">
@@ -154,7 +157,7 @@ export default function LandingPageContentVariation1() {
       </section>
 
       {/* Categories Section - Numbered List Layout */}
-      <section id="categories" className="px-4 md:px-8 py-32 md:py-48 bg-gradient-to-b from-white via-yellow-50/40 to-white">
+      <section id="categories" className="px-4 md:px-8 py-32 md:py-28 bg-gradient-to-b from-white via-yellow-50/40 to-white">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: -40 }}
@@ -194,6 +197,24 @@ export default function LandingPageContentVariation1() {
                 13: <TrendingUp className="w-10 h-10" />,
                 14: <Sparkles className="w-10 h-10" />,
                 15: <Briefcase className="w-10 h-10" />,
+              }
+
+              const categoryDescriptions: Record<number, string> = {
+                1: "Business management, strategy, and organizational leadership. Focuses on planning, coordination, and business development.",
+                2: "Finance, investments, and economic management. Handles budgeting, analysis, and financial planning.",
+                3: "Human resources, recruitment, and employee management. Manages talent, culture, and organizational development.",
+                4: "Innovation, product development, and strategic initiatives. Drives growth and creates competitive advantages.",
+                5: "Software development, coding, and technical architecture. Builds applications and systems that power businesses.",
+                6: "Design, creativity, and visual communication. Creates compelling user experiences and brand identities.",
+                7: "Education, training, and knowledge sharing. Develops skills and fosters continuous learning.",
+                8: "Cloud infrastructure, system management, and IT operations. Ensures reliability and scalability of technology.",
+                9: "Data management, analytics, and information systems. Organizes and extracts insights from large datasets.",
+                10: "Scientific research, experimentation, and discovery. Advances knowledge through rigorous investigation.",
+                11: "Mental health, psychology, and behavioral sciences. Supports wellbeing and personal development.",
+                12: "Leadership, team dynamics, and organizational effectiveness. Guides groups toward common objectives.",
+                13: "Market analysis, growth strategies, and business expansion. Identifies opportunities and drives revenue.",
+                14: "Emerging technologies, innovation labs, and future-focused initiatives. Explores cutting-edge possibilities.",
+                15: "Startups, business creation, and independent ventures. Builds and scales new enterprises from the ground up.",
               }
 
               const sampleJobs: Record<number, string[]> = {
@@ -237,20 +258,23 @@ export default function LandingPageContentVariation1() {
                             {categoryIcons[category.id] || <Briefcase className="w-8 h-8" />}
                           </div>
                           <div className="flex-grow">
-                            <h3 className="text-2xl md:text-3xl font-bold text-amber-950 group-hover:text-yellow-700 transition-colors mb-2">
+                            <h3 className="text-2xl md:text-3xl font-bold text-amber-950 group-hover:text-yellow-700 transition-colors mb-3">
                               {category.category}
                             </h3>
-                            <p className="text-amber-800 text-base leading-relaxed mb-4">
-                              Explore diverse opportunities and career progression paths in this dynamic and growing industry sector.
+                            <p className="text-amber-800 text-sm leading-relaxed mb-4">
+                              {categoryDescriptions[category.id]}
                             </p>
                             
                             {/* Featured Roles */}
-                            <div className="flex flex-wrap gap-2">
-                              {sampleJobs[category.id]?.map((job, idx) => (
-                                <span key={idx} className="text-xs px-3 py-1.5 bg-yellow-100 text-amber-800 rounded-full font-medium group-hover:bg-yellow-200 transition-colors">
-                                  {job}
-                                </span>
-                              ))}
+                            <div>
+                              <p className="text-xs font-semibold text-amber-800 uppercase tracking-wide mb-2">Sample Roles</p>
+                              <div className="flex flex-wrap gap-2">
+                                {sampleJobs[category.id]?.map((job, idx) => (
+                                  <span key={idx} className="text-xs px-3 py-1.5 bg-yellow-100 text-amber-800 rounded-full font-medium group-hover:bg-yellow-200 transition-colors">
+                                    {job}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -262,20 +286,14 @@ export default function LandingPageContentVariation1() {
                             <p className="text-xs text-amber-700 font-semibold uppercase tracking-wider">Career Paths</p>
                           </div>
                           
-                          <div className="flex flex-col items-end gap-2">
-                            <div className="w-14 h-14 rounded-full bg-yellow-100 group-hover:bg-yellow-300 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md">
-                              <ArrowRight className="w-6 h-6 text-amber-700 group-hover:translate-x-1 transition-transform duration-300" />
-                            </div>
-                            <div className="text-right">
-                              <p className="text-xs font-semibold text-amber-800">High Demand</p>
-                              <p className="text-xs text-amber-700">Growing Field</p>
-                            </div>
+                          <div className="w-14 h-14 rounded-full bg-yellow-100 group-hover:bg-yellow-300 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md">
+                            <ArrowRight className="w-6 h-6 text-amber-700 group-hover:translate-x-1 transition-transform duration-300" />
                           </div>
                         </div>
                       </div>
 
-                      {/* Top accent bar */}
-                      <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-yellow-500 to-amber-400 group-hover:h-4 transition-all duration-300"></div>
+                      {/* Top accent bar - Reduced thickness */}
+                      <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-yellow-500 to-amber-400 group-hover:h-2 transition-all duration-300"></div>
                     </div>
                   </Link>
                 </motion.div>
@@ -284,6 +302,7 @@ export default function LandingPageContentVariation1() {
           </motion.div>
         </div>
       </section>
+      <Footer/>
     </main>
   )
 }

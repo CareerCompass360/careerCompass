@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { Search, ArrowRight, Code, Database, Shield, Cloud, Palette, Zap, Cpu, Lightbulb, Award, Microscope, Smartphone, Brain, Network, Landmark, Users, TrendingUp, Briefcase, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { careersData } from '@/lib/career-data'
+import { Footer } from "../common/Footer"
 
 // Icon mapping for careers
 const careerIconMap: Record<string, React.ReactNode> = {
@@ -236,6 +237,7 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
           <p className="text-lg text-amber-800">Total careers in {category.category}</p>
         </div>
       </section>
+      <Footer/>
     </main>
   )
 }
