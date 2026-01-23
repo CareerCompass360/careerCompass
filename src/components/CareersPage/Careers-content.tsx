@@ -217,24 +217,23 @@ export default function LandingPageContentVariation1() {
                 15: "Startups, business creation, and independent ventures. Builds and scales new enterprises from the ground up.",
               }
 
-              const sampleJobs: Record<number, string[]> = careersData.reduce(
-                (acc, career: any) => {
-                  const categoryId = career?.categoryId
-                  const title = career?.title
-
-                  if (typeof categoryId === "number" && typeof title === "string") {
-                    if (!acc[categoryId]) {
-                      acc[categoryId] = []
-                    }
-                    if (acc[categoryId].length < 2) {
-                      acc[categoryId].push(title)
-                    }
-                  }
-
-                  return acc
-                },
-                {} as Record<number, string[]>
-              )
+              const sampleJobs: Record<number, string[]> = {
+                1: ["Business Analyst", "Operations Manager"],
+                2: ["Financial Analyst", "Investment Manager"],
+                3: ["HR Specialist", "Talent Acquisition Manager"],
+                4: ["Product Manager", "Innovation Lead"],
+                5: ["Software Engineer", "Full-Stack Developer"],
+                6: ["UX/UI Designer", "Graphic Designer"],
+                7: ["Learning & Development Specialist", "Instructional Designer"],
+                8: ["Cloud Engineer", "Systems Administrator"],
+                9: ["Data Analyst", "Business Intelligence Analyst"],
+                10: ["Research Scientist", "Lab Technician"],
+                11: ["Counselor", "Psychologist"],
+                12: ["Team Lead", "Organizational Development Consultant"],
+                13: ["Growth Strategist", "Business Development Manager"],
+                14: ["AI Specialist", "Emerging Tech Strategist"],
+                15: ["Startup Founder", "Entrepreneur-in-Residence"],
+              }
               
               const categoryNumber = String(category.id).padStart(2, "0")
               
