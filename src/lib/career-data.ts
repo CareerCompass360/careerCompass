@@ -1,5 +1,5 @@
 export interface Career {
-  name?: string
+  name: string
 }
 
 export interface CareerCategory {

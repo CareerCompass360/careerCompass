@@ -1,6 +1,6 @@
 export interface Career {
-  name?: string
-  careerName?: string
+  name: string
+  careerName: string
   category?: string
   image?: string
   resources?: {
