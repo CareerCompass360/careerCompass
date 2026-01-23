@@ -71,13 +71,16 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
     if (!category?.careers) return []
     const searchLower = searchTerm.toLowerCase()
     let filtered = category.careers.filter((career) => {
-      const matchesSearch = career.name.toLowerCase().includes(searchLower)
+      const name = career.name ?? ''
+      const matchesSearch = name.toLowerCase().includes(searchLower)
       return matchesSearch
     })
 
     // Sort alphabetically
     return filtered.sort((a, b) => {
-      const comparison = a.name.localeCompare(b.name)
+      const nameA = a.name ?? ''
+      const nameB = b.name ?? ''
+      const comparison = nameA.localeCompare(nameB)
       return sortOrder === 'asc' ? comparison : -comparison
     })
   }, [searchTerm, sortOrder, category])
