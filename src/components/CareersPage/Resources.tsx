@@ -6,10 +6,9 @@ import { BookOpen, Globe } from "lucide-react"
 interface ResourcesProps {
   online?: string[]
   offline?: string[]
-  careerName?: string
 }
 
-export default function ResourcesSection({ online, offline, careerName }: ResourcesProps) {
+export default function ResourcesSection({ online, offline }: ResourcesProps) {
   const defaultOnline = [
     "Coursera - Specialized courses from top universities",
     "Udemy - Practical skill-based learning",
