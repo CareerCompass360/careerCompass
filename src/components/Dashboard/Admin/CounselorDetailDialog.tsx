@@ -100,9 +100,9 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent showCloseButton={false} className="!max-w-5xl max-h-[95vh] overflow-hidden flex flex-col bg-white !p-0 rounded-2xl shadow-2xl">
+      <DialogContent showCloseButton={false} className="max-w-5xl! max-h-[95vh] overflow-hidden flex flex-col bg-white p-0! rounded-2xl shadow-2xl">
         {/* Header Section */}
-        <div className="flex-shrink-0 border-b border-slate-100 px-8 py-7 flex items-start justify-between bg-gradient-to-r from-slate-50 to-white">
+        <div className="shrink-0 border-b border-slate-100 px-8 py-7 flex items-start justify-between bg-linear-to-r from-slate-50 to-white">
           <div className="flex-1">
             <DialogTitle className="text-3xl font-bold text-slate-950 mb-3">{counselor.fullName}</DialogTitle>
             <div className="flex items-center gap-3 flex-wrap">
@@ -135,7 +135,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
           {/* Profile & Contact Section */}
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {counselor.profilePhoto && (
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <img
                   src={counselor.profilePhoto || "/placeholder.svg"}
                   alt={counselor.fullName}
@@ -253,7 +253,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
             </h3>
 
             {/* Current Role Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-7 rounded-xl mb-5 shadow-sm">
+            <div className="bg-linear-to-br from-slate-900 to-slate-800 text-white p-7 rounded-xl mb-5 shadow-sm">
               <div className="text-xl font-bold mb-1.5">{counselor.currentJobTitle}</div>
               <div className="text-slate-300 mb-5 font-medium">{counselor.currentOrganization}</div>
               <div className="flex flex-wrap gap-3">
@@ -360,11 +360,11 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
               </h3>
 
               <div className="grid grid-cols-2 gap-4 mb-5">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-xl text-center">
+                <div className="bg-linear-to-br from-slate-900 to-slate-800 text-white p-6 rounded-xl text-center">
                   <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">People Guided</div>
                   <div className="text-4xl font-bold">{counselor.numberOfPeopleGuided}+</div>
                 </div>
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-xl text-center">
+                <div className="bg-linear-to-br from-slate-900 to-slate-800 text-white p-6 rounded-xl text-center">
                   <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Platform</div>
                   <div className="text-xl font-bold">{counselor.whereMentored}</div>
                 </div>
@@ -589,7 +589,7 @@ export function CounselorDetailDialog({ counselor, open, onClose, onStatusUpdate
         </div>
 
         {/* Footer with Action Buttons */}
-        <div className="flex-shrink-0 border-t border-slate-100 px-8 py-6 bg-gradient-to-r from-slate-50 to-white flex gap-3 justify-end flex-wrap">
+        <div className="shrink-0 border-t border-slate-100 px-8 py-6 bg-linear-to-r from-slate-50 to-white flex gap-3 justify-end flex-wrap">
           <Button
             variant="outline"
             onClick={onClose}
