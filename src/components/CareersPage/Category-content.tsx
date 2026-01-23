@@ -198,36 +198,40 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
               transition={{ duration: 0.6 }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              {filteredCareers.map((career, idx) => (
-                <motion.div
-                  key={`${career.name}-${idx}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05, duration: 0.4 }}
-                  whileHover={{ y: -4 }}
-                >
-                  <Link href={`/careers/detail/${encodeURIComponent(career.name)}`}>
-                    <div className="group h-full bg-white border-2 border-yellow-200 rounded-xl p-6 hover:border-yellow-400 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-all flex-shrink-0">
-                          <div className="text-amber-700">
-                            {careerIconMap[career.name] || <Briefcase className="w-6 h-6" />}
+              {filteredCareers.map((career, idx) => {
+                const careerName = career.name ?? 'Unknown career'
+
+                return (
+                  <motion.div
+                    key={`${careerName}-${idx}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05, duration: 0.4 }}
+                    whileHover={{ y: -4 }}
+                  >
+                    <Link href={`/careers/detail/${encodeURIComponent(careerName)}`}>
+                      <div className="group h-full bg-white border-2 border-yellow-200 rounded-xl p-6 hover:border-yellow-400 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-all flex-shrink-0">
+                            <div className="text-amber-700">
+                              {career.name ? careerIconMap[career.name] : <Briefcase className="w-6 h-6" />}
+                            </div>
                           </div>
+                          <div className="flex-1">
+                            <h3 className="text-lg font-bold text-amber-950 group-hover:text-yellow-700 transition-colors leading-tight">
+                              {careerName}
+                            </h3>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-amber-700 group-hover:text-yellow-700 group-hover:translate-x-2 transition-all flex-shrink-0" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-amber-950 group-hover:text-yellow-700 transition-colors leading-tight">
-                            {career.name}
-                          </h3>
-                        </div>
-                        <ArrowRight className="w-5 h-5 text-amber-700 group-hover:text-yellow-700 group-hover:translate-x-2 transition-all flex-shrink-0" />
+                        <p className="text-sm text-amber-700">
+                          Click to explore career details, skills, and pathways
+                        </p>
                       </div>
-                      <p className="text-sm text-amber-700">
-                        Click to explore career details, skills, and pathways
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+                    </Link>
+                  </motion.div>
+                )
+              })}
             </motion.div>
           )}
         </div>
