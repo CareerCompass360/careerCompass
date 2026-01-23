@@ -217,23 +217,24 @@ export default function LandingPageContentVariation1() {
                 15: "Startups, business creation, and independent ventures. Builds and scales new enterprises from the ground up.",
               }
 
-              const sampleJobs: Record<number, string[]> = {
-                1: ["Project Manager", "Business Analyst"],
-                2: ["Financial Analyst", "Investment Banker"],
-                3: ["HR Specialist", "Recruiter"],
-                4: ["Product Manager", "Strategy Lead"],
-                5: ["Software Engineer", "Data Scientist"],
-                6: ["UX Designer", "Creative Director"],
-                7: ["Educator", "Trainer"],
-                8: ["Cloud Architect", "DevOps Engineer"],
-                9: ["Database Admin", "Data Engineer"],
-                10: ["Research Scientist", "Lab Manager"],
-                11: ["Psychologist", "Therapist"],
-                12: ["Team Lead", "Community Manager"],
-                13: ["Growth Manager", "Market Analyst"],
-                14: ["Innovation Lead", "Tech Pioneer"],
-                15: ["Entrepreneur", "Innovator"],
-              }
+              const sampleJobs: Record<number, string[]> = careersData.reduce(
+                (acc, career: any) => {
+                  const categoryId = career?.categoryId
+                  const title = career?.title
+
+                  if (typeof categoryId === "number" && typeof title === "string") {
+                    if (!acc[categoryId]) {
+                      acc[categoryId] = []
+                    }
+                    if (acc[categoryId].length < 2) {
+                      acc[categoryId].push(title)
+                    }
+                  }
+
+                  return acc
+                },
+                {} as Record<number, string[]>
+              )
               
               const categoryNumber = String(category.id).padStart(2, "0")
               
