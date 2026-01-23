@@ -65,7 +65,7 @@ export function CounselorCard({ counselor, onViewDetails }: CounselorCardProps) 
         </div>
 
         {/* Details Grid */}
-        <div className="space-y-3 flex-grow">
+        <div className="space-y-3 grow">
           <div className="flex items-center gap-2 text-sm text-slate-700">
             <Briefcase className="h-4 w-4 text-slate-600" />
             <span className="font-medium">{counselor.currentJobTitle}</span>
@@ -90,7 +90,7 @@ export function CounselorCard({ counselor, onViewDetails }: CounselorCardProps) 
         {/* View Details Button */}
         <Button
           onClick={onViewDetails}
-          className="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-2"
+          className="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center gap-2 cursor-pointer"
         >
           <Eye className="h-4 w-4" />
           View Full Details

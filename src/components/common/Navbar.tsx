@@ -29,7 +29,7 @@ export function Navbar() {
         className={`
           fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out
           ${isScrolled 
-            ? 'md:mt-4 md:w-[900px] md:left-1/2 md:-translate-x-1/2 md:rounded-2xl bg-stone-50/96 backdrop-blur-xl md:border-2 border-b md:border-amber-200/40 border-amber-100/50 md:shadow-2xl shadow-lg md:shadow-amber-200/30 animate-navbar-float' 
+            ? 'md:mt-4 md:w-225 md:left-1/2 md:-translate-x-1/2 md:rounded-2xl bg-stone-50/96 backdrop-blur-xl md:border-2 border-b md:border-amber-200/40 border-amber-100/50 md:shadow-2xl shadow-lg md:shadow-amber-200/30 animate-navbar-float' 
             : 'mt-0 mx-0 rounded-none bg-stone-50/95 backdrop-blur-md border-b border-amber-100/50 shadow-sm'
           }
         `}

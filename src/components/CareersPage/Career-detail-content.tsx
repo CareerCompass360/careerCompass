@@ -77,7 +77,7 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
   return (
     <main className="min-h-screen bg-white">
       {/* Header */}
-      <section className="px-4 md:px-8 py-12 md:py-20 border-b border-yellow-200 bg-gradient-to-br from-yellow-50 to-white">
+      <section className="px-4 md:px-8 py-12 md:py-20 border-b border-yellow-200 bg-linear-to-br from-yellow-50 to-white">
         <div className="max-w-7xl mx-auto">
           <Link
             href={`/careers/category/${category.id}`}
@@ -119,14 +119,13 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
             {/* Skills */}
             <div>
               <h2 className="text-3xl font-bold text-amber-950 mb-8">Required Skills</h2>
-              <SkillsGrid careerName={decodedCareerName} skills={career?.skillsRequired} />
+              <SkillsGrid skills={career?.skillsRequired} />
             </div>
 
             {/* Resources */}
             <div>
               <h2 className="text-3xl font-bold text-amber-950 mb-8">Learning Resources</h2>
               <ResourcesSection 
-                careerName={decodedCareerName} 
                 online={career?.resources?.online}
                 offline={career?.resources?.offline}
               />
