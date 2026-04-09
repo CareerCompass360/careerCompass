@@ -93,7 +93,7 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
     const filtered = category.careers.filter((career) => searchLower === '' || career.name.toLowerCase().startsWith(searchLower))
 
     return filtered.sort((a, b) => {
-      const comparison = a.name.localeCompare(b.name)
+      const comparison = (a.name ?? '').localeCompare(b.name ?? '')
       return sortOrder === 'asc' ? comparison : -comparison
     })
   }, [searchTerm, sortOrder, category])
@@ -113,7 +113,7 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
 
   return (
     <main className="min-h-screen bg-stone-50">
-      <Navbar disableFloating />
+      <Navbar />
 
       <div className="pt-16">
         <section className="px-4 md:px-8 py-10 md:py-12 border-b border-amber-100/70 bg-gradient-to-br from-amber-50/60 via-stone-50 to-yellow-50/30">
@@ -129,7 +129,6 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
               </p>
             </motion.div>
 
-            {/* Integrated below heading, fixed while scrolling */}
             <div className="sticky top-16 z-40 mt-7 border border-amber-100 bg-stone-50/95 backdrop-blur-sm rounded-2xl shadow-sm p-4 md:p-5">
               <div className="space-y-4">
                 <div className="flex-1 relative">
@@ -217,9 +216,7 @@ export default function CategoryPageContent({ categoryId }: CategoryPageContentP
                       <div className="group h-full bg-white/90 backdrop-blur-sm border border-amber-100 rounded-2xl p-5 hover:border-amber-300 hover:shadow-md transition-all duration-300 cursor-pointer">
                         <div className="flex items-start gap-3 mb-3">
                           <div className="p-2.5 bg-amber-50 rounded-lg group-hover:bg-amber-100 transition-all flex-shrink-0">
-                            <div className="text-amber-700">
-                              {careerIconMap[career.name] || <Briefcase className="w-5 h-5" />}
-                            </div>
+                            <div className="text-amber-700">{careerIconMap[career.name] || <Briefcase className="w-5 h-5" />}</div>
                           </div>
                           <div className="flex-1">
                             <h3 className="text-base font-bold text-amber-950 group-hover:text-amber-700 transition-colors leading-tight">
