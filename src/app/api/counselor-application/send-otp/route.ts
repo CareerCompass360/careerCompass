@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(req: NextRequest) {
       // Cleanup: Delete all OTPs older than 2 minutes
       const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000)
@@ -84,6 +82,8 @@ export async function POST(req: NextRequest) {
 
     // Send email using Resend
     try {
+      const resend = new Resend(process.env.RESEND_API_KEY || '')
+      
       await resend.emails.send({
         from: "CareerCompass <onboarding@careercompass.namandadhich.dev>", // Change this to your verified domain
         to: email,
