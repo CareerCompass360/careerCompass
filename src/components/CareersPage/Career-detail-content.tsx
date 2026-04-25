@@ -77,6 +77,7 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
 
   return (
     <main className="min-h-screen bg-stone-50">
+      <Navbar />
       <div className="pt-16">
         <section className="px-4 md:px-8 py-12 md:py-20 border-b border-amber-100 bg-linear-to-br from-amber-50/60 via-stone-50 to-yellow-50/30">
           <div className="max-w-7xl mx-auto">
