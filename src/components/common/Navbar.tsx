@@ -7,11 +7,16 @@ import { useUser } from "@stackframe/stack"
 import { useProfile } from "@/lib/useProfile"
 import Link from "next/link"
 
-export function Navbar() {
+type NavbarProps = {
+  disableFloating?: boolean
+}
+
+export function Navbar({ disableFloating = false }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const user = useUser()
   const { user: dbUser } = useProfile()
+  const shouldFloat = !disableFloating && isScrolled
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,13 +42,13 @@ export function Navbar() {
         <div 
           className={`
             mx-auto px-3 sm:px-6 lg:px-8 transition-all duration-500 ease-in-out
-            ${isScrolled ? 'md:max-w-6xl md:px-6' : 'max-w-7xl'}
+            ${shouldFloat ? 'md:max-w-6xl md:px-6' : 'max-w-7xl'}
           `}
         >
           <div 
             className={`
               flex items-center justify-between transition-all duration-500 ease-in-out
-              ${isScrolled ? 'h-14' : 'h-16'}
+              ${shouldFloat ? 'h-14' : 'h-16'}
             `}
           >
             <Link
@@ -53,15 +58,15 @@ export function Navbar() {
               <div 
                 className={`
                   bg-linear-to-br from-amber-600 to-amber-500 rounded-xl flex items-center justify-center shadow-md transition-all duration-500 ease-in-out
-                  ${isScrolled ? 'w-7 h-7 sm:w-8 sm:h-8' : 'w-8 h-8 sm:w-9 sm:h-9'}
+                  ${shouldFloat ? 'w-7 h-7 sm:w-8 sm:h-8' : 'w-8 h-8 sm:w-9 sm:h-9'}
                 `}
               >
-                <Compass className={`text-white transition-all duration-500 ease-in-out ${isScrolled ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : 'h-4 w-4 sm:h-5 sm:w-5'} group-hover:scale-110`} />
+                <Compass className={`text-white transition-all duration-500 ease-in-out ${shouldFloat ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : 'h-4 w-4 sm:h-5 sm:w-5'} group-hover:scale-110`} />
               </div>
               <span 
                 className={`
                   font-bold text-amber-800 tracking-tight transition-all duration-500 ease-in-out whitespace-nowrap
-                  ${isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}
+                  ${shouldFloat ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}
                 `}
               >
                 Career Compass
@@ -93,7 +98,7 @@ export function Navbar() {
                         variant="ghost"
                         className={`
                           text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 cursor-pointer transition-all duration-300 flex items-center gap-2
-                          ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
+                          ${shouldFloat ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
                         `}
                       >
                         <UserIcon className="h-4 w-4" />
@@ -105,7 +110,7 @@ export function Navbar() {
                     onClick={() => user.signOut()}
                     className={`
                       text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 cursor-pointer transition-all duration-300
-                      ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
+                      ${shouldFloat ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
                     `}
                   >
                     Sign Out
@@ -118,7 +123,7 @@ export function Navbar() {
                       variant="ghost" 
                       className={`
                         text-amber-800/80 hover:text-amber-700 hover:bg-amber-100/50 cursor-pointer transition-all duration-300
-                        ${isScrolled ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
+                        ${shouldFloat ? 'text-sm px-3 py-1.5' : 'text-sm px-4 py-2'}
                       `}
                     >
                       Sign In
