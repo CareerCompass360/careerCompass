@@ -80,7 +80,7 @@ export default function CareerPathVisualization({
         <div className="relative">
           {/* Continuous dotted vertical line */}
           <div
-            className="absolute left-[39px] top-0 bottom-0 w-px"
+            className="absolute left-9.75 top-0 bottom-0 w-px"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(to bottom, #d97706 0 8px, transparent 8px 16px)",
@@ -110,7 +110,7 @@ export default function CareerPathVisualization({
                   <div className="space-y-3">
                     {step.options.map((option, optIndex) => (
                       <div key={optIndex} className="flex gap-3">
-                        <span className="mt-2 w-2 h-2 rounded-full bg-yellow-500 flex-shrink-0" />
+                        <span className="mt-2 w-2 h-2 rounded-full bg-yellow-500 shrink-0" />
                         <p className="text-sm text-amber-800">
                           {option}
                         </p>

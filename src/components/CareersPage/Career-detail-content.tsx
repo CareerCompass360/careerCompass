@@ -76,76 +76,70 @@ export default function CareerDetailPageContent({ careerName }: CareerDetailPage
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Header */}
-      <section className="px-4 md:px-8 py-12 md:py-20 border-b border-yellow-200 bg-linear-to-br from-yellow-50 to-white">
-        <div className="max-w-7xl mx-auto">
-          <Link
-            href={`/careers/category/${category.id}`}
-            className="text-amber-700 font-semibold mb-6 inline-flex items-center hover:text-yellow-700"
-          >
-            ← Back to {category.category}
-          </Link>
+    <main className="min-h-screen bg-stone-50">
+      <div className="pt-16">
+        <section className="px-4 md:px-8 py-12 md:py-20 border-b border-amber-100 bg-linear-to-br from-amber-50/60 via-stone-50 to-yellow-50/30">
+          <div className="max-w-7xl mx-auto">
+            <Link href={`/careers/category/${category.id}`} className="text-amber-700 font-semibold mb-6 inline-flex items-center hover:text-yellow-700">
+              ← Back to {category.category}
+            </Link>
 
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="text-5xl md:text-6xl font-bold text-amber-950 mb-4">{decodedCareerName}</h1>
-            <p className="text-lg text-amber-800 mb-6">
-              A career in {decodedCareerName} within the {category?.category} field offers rewarding opportunities for professional growth.
-            </p>
+            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <h1 className="text-4xl md:text-6xl font-bold text-amber-950 mb-4">{decodedCareerName}</h1>
+              <p className="text-lg text-amber-800 mb-6 max-w-3xl">
+                A career in {decodedCareerName} within the {category?.category} field offers rewarding opportunities for professional growth.
+              </p>
 
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 text-sm">
-                <Briefcase className="w-5 h-5 text-yellow-600" />
-                <span className="text-amber-800">{category?.category}</span>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex items-center gap-2 text-sm rounded-full bg-white/80 border border-amber-100 px-4 py-2 shadow-sm">
+                  <Briefcase className="w-5 h-5 text-yellow-600" />
+                  <span className="text-amber-800">{category?.category}</span>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
 
-            {/* Skills */}
-            <div>
-              <h2 className="text-3xl font-bold text-amber-950 mb-8">Required Skills</h2>
-              <SkillsGrid skills={career?.skillsRequired} />
-            </div>
-
-            {/* Resources */}
-            <div>
-              <h2 className="text-3xl font-bold text-amber-950 mb-8">Learning Resources</h2>
-              <ResourcesSection 
-                online={career?.resources?.online}
-                offline={career?.resources?.offline}
-              />
-            </div>
-
-              {/* Resources */}
-              <div>
-                <h2 className="text-3xl font-bold text-amber-950 mb-8">Learning Resources</h2>
-                <ResourcesSection
-                  online={career?.resources?.online}
-                  offline={career?.resources?.offline}
-                />
+        <section className="px-4 md:px-8 py-14 md:py-16">
+          <div className="max-w-7xl mx-auto space-y-14">
+            {loading ? (
+              <div className="rounded-2xl border border-amber-100 bg-white/90 p-8 text-center text-amber-800 shadow-sm">
+                Loading career details...
               </div>
-
-              {/* Blog Section */}
-              {blog ? (
+            ) : (
+              <>
                 <div>
-                  <h2 className="text-3xl font-bold text-amber-950 mb-8">Insights & FAQs</h2>
-                  <BlogSection blog={blog} />
+                  <h2 className="text-3xl font-bold text-amber-950 mb-8">Required Skills</h2>
+                  <SkillsGrid skills={career?.skillsRequired} />
                 </div>
-              ) : (
-                <section className="border-t border-amber-100 pt-14">
-                  <div className="bg-amber-50/70 border border-amber-100 rounded-xl p-8 text-center">
-                    <BookOpen className="w-12 h-12 text-amber-700 mx-auto mb-4" />
-                    <p className="text-amber-800">Blog content coming soon for this career.</p>
+
+                <CareerPathVisualization careerName={decodedCareerName} path={career?.path} />
+
+                <div>
+                  <h2 className="text-3xl font-bold text-amber-950 mb-8">Learning Resources</h2>
+                  <ResourcesSection online={career?.resources?.online} offline={career?.resources?.offline} />
+                </div>
+
+                {blog ? (
+                  <div>
+                    <h2 className="text-3xl font-bold text-amber-950 mb-8">Insights & FAQs</h2>
+                    <BlogSection blog={blog} />
                   </div>
-                </section>
-              )}
-            </div>
+                ) : (
+                  <section className="border-t border-amber-100 pt-14">
+                    <div className="bg-amber-50/70 border border-amber-100 rounded-xl p-8 text-center">
+                      <BookOpen className="w-12 h-12 text-amber-700 mx-auto mb-4" />
+                      <p className="text-amber-800">Blog content coming soon for this career.</p>
+                    </div>
+                  </section>
+                )}
+              </>
+            )}
           </div>
-        )}
+        </section>
       </div>
 
-      <Footer/>
+      <Footer />
     </main>
   )
 }
